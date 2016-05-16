@@ -101,6 +101,9 @@ highlight MatchParen ctermbg=4
 
 " Set explorer style
 let g:netrw_liststyle=3
+let g:netrw_banner=0
+let g:netrw_list_hide='.*\.swp$'
+
 
 set laststatus=2
 
