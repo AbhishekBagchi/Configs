@@ -96,6 +96,9 @@ let g:clipbrdDefaultReg = '+'
 " When I close a tab, remove the buffer
 set nohidden
 
+" Show line numbers
+set ruler
+
 " Set off the other paren
 highlight MatchParen ctermbg=4
 
