@@ -47,16 +47,16 @@ set foldmethod=marker
 " Needed for Syntax Highlighting and stuff
 filetype on
 filetype plugin on
-set tabstop=4
-set shiftwidth=4
-set expandtab
 syntax enable
+
 set grepprg=grep\ -nH\ $*
 
 " Who doesn't like autoindent?
 set autoindent
 
 " Spaces are better than a tab character
+set tabstop=4
+set shiftwidth=4
 set expandtab
 set smarttab
 
@@ -97,7 +97,7 @@ let g:clipbrdDefaultReg = '+'
 set nohidden
 
 " Show line numbers
-set ruler
+set number
 
 " Set off the other paren
 highlight MatchParen ctermbg=4
@@ -107,9 +107,8 @@ let g:netrw_liststyle=3
 let g:netrw_banner=0
 let g:netrw_list_hide='.*\.swp$'
 
-
+" Cool Status line
 set laststatus=2
-
 set statusline=   " clear the statusline for when vimrc is reloaded
 set statusline+=%-3.3n\                      " buffer number
 set statusline+=%f\                          " file name
