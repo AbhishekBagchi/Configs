@@ -1,0 +1,9 @@
+alias ll='ls -al'
+alias la='ls -A'
+alias l='ls -CF'
+alias grep='grep -n --color=auto'
+alias fgrep='fgrep -n --color=auto'
+alias egrep='egrep -n --color=auto'
+alias vi='vim'
+alias wget='wget -c'
+
