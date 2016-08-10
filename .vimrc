@@ -35,6 +35,9 @@ augroup END
 
 "{{{Misc Settings
 
+set colorcolumn=110
+highlight ColorColumn ctermbg=darkgray
+
 " Necesary for lots of cool vim things
 set nocompatible
 
