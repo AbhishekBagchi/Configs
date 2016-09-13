@@ -35,7 +35,7 @@ augroup END
 
 "{{{Misc Settings
 
-set colorcolumn=110
+set colorcolumn=150
 highlight ColorColumn ctermbg=darkgray
 
 " Necesary for lots of cool vim things
@@ -46,6 +46,10 @@ set showcmd
 
 " Folding Stuffs
 set foldmethod=marker
+
+" Show matching brackets
+set showmatch
+set matchtime=3
 
 " Needed for Syntax Highlighting and stuff
 filetype on
@@ -146,7 +150,6 @@ nnoremap <C-Tab> :bn<CR>
 nnoremap <C-S-Tab> :bp<CR>
 
 filetype plugin indent on
-syntax on
 
 colorscheme elflord
 
