@@ -158,6 +158,4 @@ bar {
 
 bindsym $mod+Shift+x exec $HOME/Configs/lock.sh
 
-exec $HOME/Configs/lock.sh 
-
 exec --no-startup-id xsetroot -solid "#333333"
