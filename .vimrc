@@ -5,18 +5,18 @@ set nocompatible
 
 execute pathogen#infect()
 
-"{{{Misc Settings
+"{{{ Misc Settings
 "
 set backspace=indent,eol,start
 
 set colorcolumn=150
 highlight ColorColumn ctermbg=darkgray
 
-" This shows what you are typing as a command.  I love this!
+" This shows what you are typing as a command
 set showcmd
 
 " Folding Stuffs
-set foldmethod=marker
+set foldmethod=syntax
 
 " Show matching brackets
 set showmatch
@@ -26,17 +26,16 @@ set matchtime=3
 set autochdir
 set tags=tags;
 
-" Needed for Syntax Highlighting and stuff
+" Needed for Syntax Highlighting
 filetype on
 filetype plugin on
 syntax enable
 
 set grepprg=grep\ -nH\ $*
 
-" Who doesn't like autoindent?
 set autoindent
 
-" Spaces are better than a tab character
+" Tab to spaces
 set tabstop=4
 set shiftwidth=4
 set expandtab
@@ -48,34 +47,26 @@ if version >= 700
    set nospell
 endif
 
-" Cool tab completion stuff
+" Tab completion
 set wildmenu
 set wildmode=list:longest,full
 
-" Enable mouse support in console
-set mouse=a
-
-" Ignoring case is a fun trick
+" Ignore case by default
 set ignorecase
-
-" And so is Artificial Intellegence!
 set smartcase
 
-" This is totally awesome - remap jj to escape in insert mode.  You'll never type jj anyway, so it's great!
 inoremap jj <Esc>
-
 nnoremap JJJJ <Nop>
 
-" Incremental searching is sexy
+" Incremental searching
 set incsearch
 
 " Highlight things that we find with the search
 set hlsearch
 
-" Since I use linux, I want this
 let g:clipbrdDefaultReg = '+'
 
-" When I close a tab, remove the buffer
+" Remove buffer on closing tab
 set nohidden
 
 " Show line numbers
@@ -84,12 +75,7 @@ set number
 " Set off the other paren
 highlight MatchParen ctermbg=4
 
-" Set explorer style
-let g:netrw_liststyle=3
-let g:netrw_banner=0
-let g:netrw_list_hide='.*\.swp$'
-
-" Cool Status line
+" Status line
 set laststatus=2
 set statusline=   " clear the statusline for when vimrc is reloaded
 set statusline+=%-3.3n\                      " buffer number
@@ -127,26 +113,6 @@ au InsertLeave * match ExtraWhiteSpace /\s\+$/
 
 " Remove Trailing whitespace
 nnoremap <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
-
-"{{{ Functions
-
-"{{{ Open URL in browser
-
-function! Browser ()
-   let line = getline (".")
-   let line = matchstr (line, "http[^   ]*")
-   exec "!firefox ".line
-endfunction
-"}}}
-
-"}}}
-
-"{{{ Mappings
-
-" Open Url on this line with the browser \w
-map <Leader>w :call Browser ()<CR>
-nnoremap <C-Tab> :bn<CR>
-nnoremap <C-S-Tab> :bp<CR>
 
 filetype plugin indent on
 
