@@ -10,7 +10,7 @@ execute pathogen#infect()
 set backspace=indent,eol,start
 
 set colorcolumn=150
-highlight ColorColumn ctermbg=darkgray
+highlight ColorColumn ctermbg=red
 
 " This shows what you are typing as a command
 set showcmd
@@ -119,3 +119,7 @@ filetype plugin indent on
 colorscheme elflord
 
 set pastetoggle=<F8>
+
+if filereadable(".vimrc.extra")
+    so .vimrc.extra
+endif
