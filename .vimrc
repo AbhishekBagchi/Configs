@@ -51,6 +51,8 @@ endif
 set wildmenu
 set wildmode=list:longest,full
 
+" Enable mouse support in console
+set mouse=a
 " Ignore case by default
 set ignorecase
 set smartcase
@@ -113,6 +115,8 @@ au InsertLeave * match ExtraWhiteSpace /\s\+$/
 
 " Remove Trailing whitespace
 nnoremap <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
+
+set nowrap
 
 filetype plugin indent on
 
