@@ -51,8 +51,6 @@ endif
 set wildmenu
 set wildmode=list:longest,full
 
-" Enable mouse support in console
-set mouse=a
 " Ignore case by default
 set ignorecase
 set smartcase
