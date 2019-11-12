@@ -1,3 +1,13 @@
+# Antigen
+source /home/abhbag01/antigen.zsh
+antigen use oh-my-zsh
+antigen bundle git
+antigen bundle zsh-users/zsh-completions
+antigen bundle command-not-found
+antigen bundle zsh-users/zsh-syntax-highlighting
+
+antigen apply
+
 export EDITOR='vim'
 
 HISTFILE=~/.histfile
@@ -57,7 +67,7 @@ function vicpp {
     vi $1.{h,cpp}
 }
 
-function vihsplit {
+function vivsplit {
     vim -O $1.{cpp,h}
 }
 
