@@ -167,4 +167,5 @@ exec xautolock -time 5 -locker '$HOME/Configs/lock.sh' &
 bindsym XF86AudioRaiseVolume exec "amixer -q sset Master,0 1+ unmute"
 bindsym XF86AudioLowerVolume exec "amixer -q sset Master,0 1- unmute"
 
-exec --no-startup-id xsetroot -solid "#000000"
+#exec --no-startup-id xsetroot -solid "#000000"
+exec --no-startup-id feh --bg-fill ~/Downloads/Wall.jpg
