@@ -71,10 +71,10 @@ function vivsplit {
     vim -O $1.{cpp,h}
 }
 
-if [[ -f ".shell_aliases" ]] then
-    source ".shell_aliases"
+if [[ -a ~/.shell_aliases ]] then
+    source ~/.shell_aliases
 fi
 
-if [[ -f ".zshrc.extra" ]] then
-    source ".zshrc.extra"
+if [[ -a ~/.zshrc.extra ]] then
+    source ~/.zshrc.extra
 fi
