@@ -1,7 +1,7 @@
 set expandtab
 
 " Necesary for lots of cool vim things
-set nocompatible  
+set nocompatible
 
 execute pathogen#infect()
 
@@ -50,6 +50,9 @@ endif
 " Tab completion
 set wildmenu
 set wildmode=list:longest,full
+
+" Enable mouse support in console
+"set mouse=a
 
 " Ignore case by default
 set ignorecase
@@ -102,7 +105,8 @@ let NERDTreeAutoDeleteBuffer = 1
 let NERDTreeQuitOnOpen = 1
 nnoremap <C-n> :NERDTreeToggle<CR>
 
-" }}}
+" Case sensitive
+set noic
 
 " Highlight trailing whitespace.
 highlight ExtraWhitespace ctermbg=red guibg=#600000
@@ -114,6 +118,9 @@ au InsertLeave * match ExtraWhiteSpace /\s\+$/
 " Remove Trailing whitespace
 nnoremap <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
 
+" Comment out word under cursor
+nnoremap <expr> <C-c> ':%s/\<'.expand('<cword>').'\>/\/* & *\//<CR>'
+
 set nowrap
 
 filetype plugin indent on
@@ -122,6 +129,8 @@ colorscheme elflord
 
 set pastetoggle=<F8>
 
-if filereadable(".vimrc.extra")
-    so .vimrc.extra
+" }}}
+
+if filereadable("/home/abhbag01/.vimrc.extra")
+    source /home/abhbag01/.vimrc.extra
 endif
