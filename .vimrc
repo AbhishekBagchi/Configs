@@ -73,7 +73,12 @@ let g:clipbrdDefaultReg = '+'
 set nohidden
 
 " Show line numbers
-set number
+set number relativenumber
+augroup numbertoggle
+  autocmd!
+  autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
+  autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
+augroup END
 
 " Set off the other paren
 highlight MatchParen ctermbg=4
@@ -83,7 +88,7 @@ set laststatus=2
 set statusline=   " clear the statusline for when vimrc is reloaded
 set statusline+=%-3.3n\                      " buffer number
 set statusline+=%f\                          " file name
-set statusline+=%l/%L                        "cursor line/total lines
+set statusline+=%l/%c/%L                        " cursor line/total lines
 set statusline+=%h%m%r%w                     " flags
 set statusline+=[%{strlen(&ft)?&ft:'none'},  " filetype
 set statusline+=%{&fileformat}]              " file format
@@ -92,6 +97,9 @@ set statusline+=%{synIDattr(synID(line('.'),col('.'),1),'name')}\  " highlight
 
 " Unset highlighting after search
 nnoremap <CR> :noh<CR><CR>
+
+" Highlight word under cursor
+nnoremap <F2> :match StatusLineTerm /<C-R><C-W>/<CR>
 
 "NERDTree
 autocmd vimenter * NERDTree
@@ -118,9 +126,6 @@ au InsertLeave * match ExtraWhiteSpace /\s\+$/
 " Remove Trailing whitespace
 nnoremap <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
 
-" Comment out word under cursor
-nnoremap <expr> <C-c> ':%s/\<'.expand('<cword>').'\>/\/* & *\//<CR>'
-
 set nowrap
 
 filetype plugin indent on
@@ -134,3 +139,12 @@ set pastetoggle=<F8>
 if filereadable("/home/abhbag01/.vimrc.extra")
     source /home/abhbag01/.vimrc.extra
 endif
+
+let &t_SI = "\e[6 q"
+let &t_EI = "\e[2 q"
+
+" optional reset cursor on start:
+augroup myCmds
+au!
+autocmd VimEnter * silent !echo -ne "\e[2 q"
+augroup END
