@@ -1,5 +1,5 @@
 # Antigen
-source /home/abhbag01/antigen.zsh
+source ~/antigen.zsh
 antigen use oh-my-zsh
 antigen bundle git
 antigen bundle zsh-users/zsh-completions
@@ -17,7 +17,7 @@ setopt sharehistory appendhistory extendedglob nomatch
 unsetopt autocd
 
 # The following lines were added by compinstall
-zstyle :compinstall filename '/home/abhbag01/.zshrc'
+zstyle :compinstall filename '~/.zshrc'
 
 autoload -Uz compinit
 compinit

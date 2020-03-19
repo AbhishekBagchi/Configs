@@ -136,8 +136,8 @@ set pastetoggle=<F8>
 
 " }}}
 
-if filereadable("/home/abhbag01/.vimrc.extra")
-    source /home/abhbag01/.vimrc.extra
+if filereadable("~/.vimrc.extra")
+    source ~/.vimrc.extra
 endif
 
 let &t_SI = "\e[6 q"
