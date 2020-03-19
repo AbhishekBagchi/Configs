@@ -88,7 +88,7 @@ set laststatus=2
 set statusline=   " clear the statusline for when vimrc is reloaded
 set statusline+=%-3.3n\                      " buffer number
 set statusline+=%f\                          " file name
-set statusline+=%l/%c/%L                        " cursor line/total lines
+set statusline+=%l/%c/%L                     " cursor line/total lines
 set statusline+=%h%m%r%w                     " flags
 set statusline+=[%{strlen(&ft)?&ft:'none'},  " filetype
 set statusline+=%{&fileformat}]              " file format
@@ -136,7 +136,7 @@ set pastetoggle=<F8>
 
 " }}}
 
-if filereadable("~/.vimrc.extra")
+if filereadable(expand("~/.vimrc.extra"))
     source ~/.vimrc.extra
 endif
 
