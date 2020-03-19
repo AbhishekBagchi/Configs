@@ -23,8 +23,6 @@ autoload -Uz compinit
 compinit
 # End of lines added by compinstall
 
-bindkey "^R" history-incremental-pattern-search-backward
-
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
@@ -58,13 +56,15 @@ function parse_git_branch_and_add_brackets {
 PROMPT='[%F{red}%n@%M%f:%F{yellow}%~%f:%F{green}$(parse_git_branch_and_add_brackets)%f]
 %# '
 
+bindkey "^R" history-incremental-pattern-search-backward
+
 # Random functions
 function countdown(){
     while true; do echo -ne "`date +%H:%M:%S:%N`\r"; done
 }
 
 function vicpp {
-    vi $1.{h,cpp}
+    vim $1.{h,cpp}
 }
 
 function vivsplit {
