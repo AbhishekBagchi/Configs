@@ -61,6 +61,9 @@ set smartcase
 inoremap jj <Esc>
 nnoremap JJJJ <Nop>
 
+" Vsplit open on the right
+set splitright
+
 " Incremental searching
 set incsearch
 
