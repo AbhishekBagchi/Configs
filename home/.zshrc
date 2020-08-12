@@ -68,7 +68,7 @@ function vicpp {
 }
 
 function vivsplit {
-    vim -O $1.{cpp,h}
+    vim -O $1.{h,cpp}
 }
 
 if [[ -a ~/.shell_aliases ]] then
