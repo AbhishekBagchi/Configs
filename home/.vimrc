@@ -150,4 +150,5 @@ let &t_EI = "\e[2 q"
 augroup myCmds
 au!
 autocmd VimEnter * silent !echo -ne "\e[2 q"
+autocmd FileType gitcommit :setlocal spell spelllang=en_gb
 augroup END
