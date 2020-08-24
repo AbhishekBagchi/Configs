@@ -134,6 +134,10 @@ set nowrap
 filetype plugin indent on
 
 colorscheme elflord
+if &diff
+    colorscheme industry
+endif
+
 
 set pastetoggle=<F8>
 
