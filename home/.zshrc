@@ -58,6 +58,9 @@ PROMPT='[%F{red}%n@%M%f:%F{yellow}%~%f:%F{green}$(parse_git_branch_and_add_brack
 
 bindkey "^R" history-incremental-pattern-search-backward
 
+# Autocomplete colours
+zstyle -e ':completion:*:default' list-colors 'reply=("${PREFIX:+=(#bi)($PREFIX:t)(?)*==34=34}:${(s.:.)LS_COLORS}")'
+
 # Random functions
 function countdown(){
     while true; do echo -ne "`date +%H:%M:%S:%N`\r"; done
