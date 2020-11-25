@@ -17,6 +17,8 @@ set showcmd
 
 " Folding Stuffs
 set foldmethod=syntax
+" Fold on indent for python
+autocmd FileType python setlocal foldmethod=indent
 
 " Show matching brackets
 set showmatch
