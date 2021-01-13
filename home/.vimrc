@@ -122,8 +122,8 @@ nnoremap <C-n> :NERDTreeToggle<CR>
 set noic
 
 " Highlight trailing whitespace.
-highlight ExtraWhitespace ctermbg=red guibg=#600000
-au ColorScheme * highlight ExtraWhitespace guibg=red
+au ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
+au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match ExtraWhitespace /\s\+$/
 au BufEnter * match ExtraWhitespace /\s\+$/
 au InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
 au InsertLeave * match ExtraWhiteSpace /\s\+$/
