@@ -1,4 +1,7 @@
-if  [[ "$OSTYPE" != "darwin"* ]]; then
+if  [[ "$OSTYPE" == "darwin"* ]]; then
+    alias ls='ls -G'
+    alias ll='ls -lG'
+else
     alias ls='ls --color=auto'
     alias ll='ls -alh'
 fi
