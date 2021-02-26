@@ -61,6 +61,16 @@ bindkey "^R" history-incremental-pattern-search-backward
 # Autocomplete colours
 zstyle -e ':completion:*:default' list-colors 'reply=("${PREFIX:+=(#bi)($PREFIX:t)(?)*==34=34}:${(s.:.)LS_COLORS}")'
 
+# Setup the correct homebrew if macos
+if  [[ "$OSTYPE" == "darwin"* ]]; then
+    arch=$(arch)
+    if [[ "$arch" == "arm64" ]]; then
+        alias brew=/opt/homebrew/bin/brew
+    else
+        alias brew=/usr/local/bin/brew
+    fi
+fi
+
 # Random functions
 function countdown(){
     while true; do echo -ne "`date +%H:%M:%S:%N`\r"; done
