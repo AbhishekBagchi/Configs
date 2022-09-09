@@ -76,13 +76,19 @@ function countdown(){
     while true; do echo -ne "`date +%H:%M:%S:%N`\r"; done
 }
 
+function install(){
+    sudo apt install $1
+}
+
 function vicpp {
-    vim $1.{h,cpp}
+    vim $1{h,cpp}
 }
 
 function vivsplit {
-    vim -O $1.{h,cpp}
+    vim -O $1{h,cpp}
 }
+
+alias weekly_task='task end.after:today-1wk completed'
 
 if [[ -a ~/.shell_aliases ]] then
     source ~/.shell_aliases
