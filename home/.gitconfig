@@ -1,0 +1,30 @@
+# This is Git's per-user configuration file.
+[include]
+    path = ~/.gitconfig.extra
+[color]
+    ui = auto
+    branch = auto
+    diff = auto
+    interactive = auto
+    status = auto
+[diff]
+    tool = vimdiff
+[difftool]
+    prompt = false
+[alias]
+    d = difftool
+    edit-unmerged = "!f() { git diff --name-status --diff-filter=U | cut -f2 ; }; vim `f`"
+    add-unmerged = "!f() { git diff --name-status --diff-filter=U | cut -f2 ; }; git add `f`"
+    ll = log --all --branches --remotes --tags --graph --oneline --decorate --notes HEAD
+[push]
+    default = simple
+[merge]
+	conflictstyle = diff3
+	tool = vimdiff
+[rerere]
+    enabled = true
+[pull]
+    rebase = true
+    autostash = true
+[mergetool]
+	prompt = false
