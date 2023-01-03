@@ -106,18 +106,6 @@ nnoremap <CR> :noh<CR><CR>
 " Highlight word under cursor
 nnoremap <F2> :match StatusLineTerm /<C-R><C-W>/<CR>
 
-"NERDTree
-autocmd vimenter * NERDTree
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-let NERDTreeMinimalUI = 1
-let NERDTreeDirArrows = 1
-let NERDTreeAutoDeleteBuffer = 1
-let NERDTreeQuitOnOpen = 1
-nnoremap <C-n> :NERDTreeToggle<CR>
-
 " Case sensitive
 set noic
 
