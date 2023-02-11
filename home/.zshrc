@@ -80,6 +80,10 @@ function install(){
     sudo apt install $1
 }
 
+function package-search(){
+    apt-cache search $1
+}
+
 function vicpp {
     vim $1{h,cpp}
 }
