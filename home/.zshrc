@@ -77,11 +77,19 @@ function countdown(){
 }
 
 function install(){
-    sudo apt install $1
+    if  [[ "$OSTYPE" == "darwin"* ]]; then
+        brew install $1
+    else
+        sudo apt install $1
+    fi
 }
 
 function package-search(){
-    apt-cache search $1
+    if  [[ "$OSTYPE" == "darwin"* ]]; then
+        brew search $1
+    else
+        apt-cache search $1
+    fi
 }
 
 function vicpp {
