@@ -31,3 +31,5 @@
 [user]
 	name = Abhishek Bagchi
 	email = abhishekbagchi@icloud.com
+[core]
+	excludesfile = ~/.gitignore
