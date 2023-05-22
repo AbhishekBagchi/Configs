@@ -1,5 +1,9 @@
 # Antigen
-source ~/antigen.zsh
+if  [[ "$OSTYPE" == "darwin"* ]]; then
+    source /opt/homebrew/opt/antigen/share/antigen/antigen.zsh
+else
+    source ~/antigen.zsh
+fi
 antigen use oh-my-zsh
 antigen bundle git
 antigen bundle zsh-users/zsh-completions
@@ -93,11 +97,39 @@ function package-search(){
 }
 
 function vicpp {
-    vim $1{h,cpp}
+    header_ext=
+    if [ -f ${1}h ]; then
+        header_ext=h
+    elif [ -f ${1}hpp ]; then
+        header_ext=hpp
+    elif [ -f ${1}hh ]; then
+        header_ext=hh
+    fi
+    source_ext=
+    if [ -f ${1}cpp ]; then
+        source_ext=cpp
+    elif [ -f ${1}cc ]; then
+        source_ext=cc
+    fi
+    vim $1{${header_ext},${source_ext}}
 }
 
 function vivsplit {
-    vim -O $1{h,cpp}
+    header_ext=
+    if [ -f ${1}h ]; then
+        header_ext=h
+    elif [ -f ${1}hpp ]; then
+        header_ext=hpp
+    elif [ -f ${1}hh ]; then
+        header_ext=hh
+    fi
+    source_ext=
+    if [ -f ${1}cpp ]; then
+        source_ext=cpp
+    elif [ -f ${1}cc ]; then
+        source_ext=cc
+    fi
+    vim -O $1{${header_ext},${source_ext}}
 }
 
 alias weekly_task='task end.after:today-1wk completed'
