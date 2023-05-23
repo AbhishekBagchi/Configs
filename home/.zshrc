@@ -180,6 +180,16 @@ path_prepend() {
     fi
 }
 
+update_font_size() {
+    if [[ "$1" =~ ^-?[0-9]+$ ]] ; then
+        if  [[ "$OSTYPE" == "darwin"* ]]; then
+            sed -E -i '' "s/(size: )(.*)/\1${1}/g" ~/.config/alacritty/alacritty.yml
+        else
+            sed -i '' "s/(size: )(.*)/\1${1}/g" ~/.config/alacritty/alacritty.yml
+        fi
+    fi
+}
+
 zstyle ':completion:*' auto-description 'specify: %d'
 zstyle ':completion:*' completer _expand _complete _correct _approximate
 zstyle ':completion:*' format 'Completing %d'
