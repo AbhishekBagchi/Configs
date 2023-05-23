@@ -1,22 +1,25 @@
 if  [[ "$OSTYPE" == "darwin"* ]]; then
     alias ls='ls -G'
     alias ll='ls -alG'
+    alias gopen='open'
 else
     alias ls='ls --color=auto'
     alias ll='ls -alh'
+    alias gopen='xdg-open'
 fi
+
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
 alias vi='vim'
 alias viR='vim -R'
 alias wget='wget -c'
-alias gopen='xdg-open'
 alias tmux='tmux -2'
+
 #Sed to remove trailing whitespaces
 alias whitespace_sed="sed -i 's/[[:space:]]*$//'"
 alias find_ws='find . -type f -exec egrep -l " +$" {} \;'
 alias zshrc_source="source ~/.zshrc"
-alias run_ctags='ctags -F --recurse -h +tcc --c++-kinds=+p --fields=+iaS --extra=+q'
+alias run_ctags='ctags -F --recurse -h +tcc --c++-kinds=+p --fields=+iaS --extras=+q'
 
-# vi: ft=zsh
+# vim: set filetype=zsh :
