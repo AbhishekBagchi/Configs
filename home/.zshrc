@@ -1,6 +1,12 @@
 # Antigen
 if  [[ "$OSTYPE" == "darwin"* ]]; then
-    source /opt/homebrew/opt/antigen/share/antigen/antigen.zsh
+    arch=$(arch)
+    if [[ "$arch" == "arm64" ]]; then
+        source /opt/homebrew/opt/antigen/share/antigen/antigen.zsh
+    else
+        echo "This antigen setup needs verification, and should be deprecated"
+        source /usr/local/bin/brew/opt/antigen/share/antigen/antigen.zsh
+    fi
 else
     source ~/antigen.zsh
 fi
@@ -66,6 +72,7 @@ bindkey "^R" history-incremental-pattern-search-backward
 zstyle -e ':completion:*:default' list-colors 'reply=("${PREFIX:+=(#bi)($PREFIX:t)(?)*==34=34}:${(s.:.)LS_COLORS}")'
 
 # Setup the correct homebrew if macos
+# This is here because it's needed later in the file, so .shell_aliases would be too late
 if  [[ "$OSTYPE" == "darwin"* ]]; then
     arch=$(arch)
     if [[ "$arch" == "arm64" ]]; then
@@ -134,14 +141,6 @@ function vivsplit {
 
 alias weekly_task='task end.after:today-1wk completed'
 
-if [[ -a ~/.shell_aliases ]] then
-    source ~/.shell_aliases
-fi
-
-if [[ -a ~/.zshrc.extra ]] then
-    source ~/.zshrc.extra
-fi
-
 cursor_mode() {
     # See https://ttssh2.osdn.jp/manual/4/en/usage/tips/vim.html for cursor shapes
     cursor_block='\e[1 q'
@@ -169,6 +168,18 @@ cursor_mode() {
 
 cursor_mode
 
+path_append() {
+    if [ -d "$1" ] && [[ ":$PATH:" != *":$1:"* ]]; then
+        PATH="${PATH:+"$PATH:"}$1"
+    fi
+}
+
+path_prepend() {
+    if [ -d "$1" ] && [[ ":$PATH:" != *":$1:"* ]]; then
+        PATH="$1${PATH:+":$PATH"}"
+    fi
+}
+
 zstyle ':completion:*' auto-description 'specify: %d'
 zstyle ':completion:*' completer _expand _complete _correct _approximate
 zstyle ':completion:*' format 'Completing %d'
@@ -193,3 +204,11 @@ zstyle ':completion:*' verbose true
 
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
+
+if [[ -a ~/.shell_aliases ]] then
+    source ~/.shell_aliases
+fi
+
+if [[ -a ~/.zshrc.extra ]] then
+    source ~/.zshrc.extra
+fi
