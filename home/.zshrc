@@ -139,6 +139,32 @@ function vivsplit {
     vim -O $1{${header_ext},${source_ext}}
 }
 
+path_append() {
+    if [ -d "$1" ] && [[ ":$PATH:" != *":$1:"* ]]; then
+        PATH="${PATH:+"$PATH:"}$1"
+    fi
+}
+
+path_prepend() {
+    if [ -d "$1" ] && [[ ":$PATH:" != *":$1:"* ]]; then
+        PATH="$1${PATH:+":$PATH"}"
+    fi
+}
+
+update_font_size() {
+    if [[ "$1" =~ ^-?[0-9]+$ ]] ; then
+        if  [[ "$OSTYPE" == "darwin"* ]]; then
+            sed -E -i '' "s/(size: )(.*)/\1${1}/g" ~/.config/alacritty/alacritty.yml
+        else
+            sed -i '' "s/(size: )(.*)/\1${1}/g" ~/.config/alacritty/alacritty.yml
+        fi
+    fi
+}
+
+get_font_size() {
+    grep 'size: ' ~/.config/alacritty/alacritty.yml
+}
+
 alias weekly_task='task end.after:today-1wk completed'
 
 cursor_mode() {
@@ -167,28 +193,6 @@ cursor_mode() {
 }
 
 cursor_mode
-
-path_append() {
-    if [ -d "$1" ] && [[ ":$PATH:" != *":$1:"* ]]; then
-        PATH="${PATH:+"$PATH:"}$1"
-    fi
-}
-
-path_prepend() {
-    if [ -d "$1" ] && [[ ":$PATH:" != *":$1:"* ]]; then
-        PATH="$1${PATH:+":$PATH"}"
-    fi
-}
-
-update_font_size() {
-    if [[ "$1" =~ ^-?[0-9]+$ ]] ; then
-        if  [[ "$OSTYPE" == "darwin"* ]]; then
-            sed -E -i '' "s/(size: )(.*)/\1${1}/g" ~/.config/alacritty/alacritty.yml
-        else
-            sed -i '' "s/(size: )(.*)/\1${1}/g" ~/.config/alacritty/alacritty.yml
-        fi
-    fi
-}
 
 zstyle ':completion:*' auto-description 'specify: %d'
 zstyle ':completion:*' completer _expand _complete _correct _approximate
