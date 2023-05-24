@@ -123,11 +123,10 @@ set nowrap
 
 filetype plugin indent on
 
-colorscheme elflord
+colorscheme slate
 if &diff
     colorscheme industry
 endif
-
 
 set pastetoggle=<F8>
 
@@ -139,6 +138,8 @@ endif
 
 let &t_SI = "\e[6 q"
 let &t_EI = "\e[2 q"
+
+nmap <F7> :TagbarToggle<CR>
 
 " optional reset cursor on start:
 augroup myCmds
