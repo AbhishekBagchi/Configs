@@ -1,6 +1,4 @@
 # This is Git's per-user configuration file.
-[include]
-    path = ~/.gitconfig.extra
 [color]
     ui = auto
     branch = auto
@@ -33,3 +31,5 @@
 	email = abhishekbagchi@icloud.com
 [core]
 	excludesfile = ~/.gitignore
+[include]
+    path = ~/.gitconfig.extra
