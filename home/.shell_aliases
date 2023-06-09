@@ -1,6 +1,6 @@
 if  [[ "$OSTYPE" == "darwin"* ]]; then
     alias ls='ls -G'
-    alias ll='ls -alG'
+    alias ll='ls -ahlG'
     alias gopen='open'
 else
     alias ls='ls --color=auto'
