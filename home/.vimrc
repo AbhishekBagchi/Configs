@@ -9,9 +9,6 @@ execute pathogen#infect()
 "
 set backspace=indent,eol,start
 
-set colorcolumn=150
-highlight ColorColumn ctermbg=red
-
 " This shows what you are typing as a command
 set showcmd
 
@@ -128,6 +125,10 @@ if &diff
     colorscheme industry
 endif
 
+" After colorscheme so that this color doesn't get overriden
+set colorcolumn=150
+highlight ColorColumn ctermbg=red
+
 set pastetoggle=<F8>
 
 " }}}
@@ -147,3 +148,6 @@ au!
 autocmd VimEnter * silent !echo -ne "\e[2 q"
 autocmd FileType gitcommit :setlocal spell spelllang=en_gb
 augroup END
+
+let g:cpp_class_scope_highlight = 1
+let g:cpp_member_variable_highlight = 1
