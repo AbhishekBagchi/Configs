@@ -157,7 +157,7 @@ update_font_size() {
         if  [[ "$OSTYPE" == "darwin"* ]]; then
             sed -E -i '' "s/(size: )(.*)/\1${1}/g" ~/.config/alacritty/alacritty.yml
         else
-            sed -i '' "s/(size: )(.*)/\1${1}/g" ~/.config/alacritty/alacritty.yml
+            sed -E -i "s/(size: )(.*)/\1${1}/g" ~/.config/alacritty/alacritty.yml
         fi
     fi
 }
