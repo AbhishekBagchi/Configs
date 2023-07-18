@@ -157,7 +157,7 @@ update_font_size() {
         if  [[ "$OSTYPE" == "darwin"* ]]; then
             sed -E -i '' "s/(size: )(.*)/\1${1}/g" ~/.config/alacritty/alacritty.yml
         else
-            sed -E -i "s/(size: )(.*)/\1${1}/g" ~/.config/alacritty/alacritty.yml
+            sed -i '' "s/(size: )(.*)/\1${1}/g" ~/.config/alacritty/alacritty.yml
         fi
     fi
 }
@@ -167,6 +167,16 @@ get_font_size() {
 }
 
 alias weekly_task='task end.after:today-1wk completed'
+
+if  [[ "$OSTYPE" == "darwin"* ]]; then
+    arch=$(arch)
+    if [[ "$arch" == "arm64" ]]; then
+        coreutils_path=/opt/homebrew/Cellar/coreutils/9.3/libexec/gnubin
+        if [ -d "$coreutils_path" ] && [[ ":$PATH:" != *"$coreutils_path"* ]] ; then
+            path_prepend $coreutils_path
+        fi
+    fi
+fi
 
 cursor_mode() {
     # See https://ttssh2.osdn.jp/manual/4/en/usage/tips/vim.html for cursor shapes
