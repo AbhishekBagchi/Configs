@@ -1,5 +1,6 @@
 SOURCEHOME = home
 DOTFILES := $(wildcard $(SOURCEHOME)/\.[^\.]*)
+DOTFILES_NO_DIR := $(notdir $(DOTFILES))
 UNAME_S := $(shell uname -s)
 
 ifeq ($(UNAME_S),Darwin)
@@ -14,3 +15,7 @@ config: dotfiles
 
 dotfiles:
 	cp $(CP_FLAGS) $(DOTFILES) $(HOME)/
+
+diff:
+	$(foreach X,$(DOTFILES_NO_DIR), \
+		diff -r home/${X} ~/${X}; )
