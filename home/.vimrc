@@ -3,6 +3,8 @@ set expandtab
 " Necesary for lots of cool vim things
 set nocompatible
 
+" Use Pathogen from non-default path
+runtime bundle/vim-pathogen/autoload/pathogen.vim
 execute pathogen#infect()
 
 "{{{ Misc Settings
