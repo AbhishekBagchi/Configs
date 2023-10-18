@@ -34,3 +34,9 @@
 [submodule "home/.vim/bundle/csv"]
 	path = home/.vim/bundle/csv
 	url = https://github.com/chrisbra/csv.vim
+[submodule "home/.vim/bundle/vim-obsession"]
+	path = home/.vim/bundle/vim-obsession
+	url = git@github.com:tpope/vim-obsession.git
+[submodule "home/.vim/bundle/vim-signify"]
+	path = home/.vim/bundle/vim-signify
+	url = git@github.com:mhinz/vim-signify.git
