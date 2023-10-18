@@ -14,8 +14,8 @@ all: config
 config: dotfiles
 
 dotfiles:
-	cp $(CP_FLAGS) $(DOTFILES) $(HOME)/
+	cp $(CP_FLAGS) $(DOTFILES) $(HOME)/;
 
 diff:
 	$(foreach X,$(DOTFILES_NO_DIR), \
-		diff -r home/${X} ~/${X}; )
+		echo ${X}; diff -r home/${X} ~/${X}; )
