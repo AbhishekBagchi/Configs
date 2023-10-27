@@ -97,6 +97,7 @@ set statusline+=%h%m%r%w                     " flags
 set statusline+=[%{strlen(&ft)?&ft:'none'},  " filetype
 set statusline+=%{&fileformat}]              " file format
 set statusline+=%=                           " right align
+set statusline+=%{FugitiveStatusline()}      " fugitive
 set statusline+=%{synIDattr(synID(line('.'),col('.'),1),'name')}\  " highlight
 
 " Unset highlighting after search
@@ -159,5 +160,19 @@ if executable('ag')
     let g:ackprg = 'ag --vimgrep'
 endif
 
-" Example to remove plugins
+" vim lsp
+" leader is \
+nnoremap <leader>dd :LspDefinition<cr>
+nnoremap <leader>dn :LspNextDiagnostic<cr>
+nnoremap <leader>dp :LspPreviousDiagnostic<cr>
+nnoremap <leader>dr :LspRename<cr>
+nnoremap <leader>ds :LspStopServer<cr>
+nnoremap <leader>dp :LspPeekDefinition<cr>
+nnoremap <leader>dci :LspCallHierarchyIncoming<cr>
+nnoremap <leader>dco :LspCallHierarchyOutgoing<cr>
+" nnoremap <leader>da :LspCodeAction<cr>
+nnoremap <leader>dh :LspHover<cr>
+" nnoremap <leader>df :LspDocumentFormat<cr>
+
 " set runtimepath-=~/.vim/bundle/csv
+" set runtimepath-=~/.vim/bundle/vim-lsp
