@@ -158,3 +158,6 @@ let g:cpp_member_variable_highlight = 1
 if executable('ag')
     let g:ackprg = 'ag --vimgrep'
 endif
+
+" Example to remove plugins
+" set runtimepath-=~/.vim/bundle/csv
