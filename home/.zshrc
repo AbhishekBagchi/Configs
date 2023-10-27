@@ -141,6 +141,24 @@ function vivsplit {
     vim -O $1{${header_ext},${source_ext}}
 }
 
+# Example -> sleep 120 &; wait_for_pid_and_run $(get_pid sleep) echo "Sleep done"
+function get_pid {
+    echo $(ps aux | grep "$1" | grep -v grep | awk '{print $2}' | head -n1)
+}
+
+function wait_for_pid_and_run {
+    pid=${1}
+    shift
+    cmd="$@"
+    echo "PID is $pid"
+    echo "Command is $cmd"
+    if  [[ "$OSTYPE" == "darwin"* ]]; then
+        lsof -p $pid +r 1 &>/dev/null && eval $cmd
+    else
+        tail --pid=$pid -f /dev/null && eval $cmd
+    fi
+}
+
 path_append() {
     if [ -d "$1" ] && [[ ":$PATH:" != *":$1:"* ]]; then
         PATH="${PATH:+"$PATH:"}$1"
