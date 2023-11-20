@@ -136,10 +136,6 @@ set pastetoggle=<F8>
 
 " }}}
 
-if filereadable(expand("~/.vimrc.extra"))
-    source ~/.vimrc.extra
-endif
-
 let &t_SI = "\e[6 q"
 let &t_EI = "\e[2 q"
 
@@ -176,3 +172,8 @@ nnoremap <leader>dh :LspHover<cr>
 
 " set runtimepath-=~/.vim/bundle/csv
 " set runtimepath-=~/.vim/bundle/vim-lsp
+" set runtimepath-=~/.vim/bundle/vim-lsp-settings
+
+if filereadable(expand("~/.vimrc.extra"))
+    source ~/.vimrc.extra
+endif
