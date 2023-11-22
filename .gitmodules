@@ -40,3 +40,6 @@
 [submodule "home/.vim/bundle/vim-signify"]
 	path = home/.vim/bundle/vim-signify
 	url = git@github.com:mhinz/vim-signify.git
+[submodule "home/.vim/bundle/AnsiEsc"]
+	path = home/.vim/bundle/AnsiEsc
+	url = git@github.com:powerman/vim-plugin-AnsiEsc.git
