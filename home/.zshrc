@@ -172,11 +172,13 @@ path_prepend() {
 }
 
 update_font_size() {
+    # Check if integer
     if [[ "$1" =~ ^-?[0-9]+$ ]] ; then
+        # Check if MacOS
         if  [[ "$OSTYPE" == "darwin"* ]]; then
             sed -E -i '' "s/(size: )(.*)/\1${1}/g" ~/.config/alacritty/alacritty.yml
         else
-            sed -i '' "s/(size: )(.*)/\1${1}/g" ~/.config/alacritty/alacritty.yml
+            sed -i "s/\(size: \)\(.*\)/\1${1}/g" ~/.config/alacritty/alacritty.yml
         fi
     fi
 }
