@@ -8,7 +8,7 @@ if  [[ "$OSTYPE" == "darwin"* ]]; then
         source /usr/local/bin/brew/opt/antigen/share/antigen/antigen.zsh
     fi
 else
-    source ~/antigen.zsh
+    source /usr/share/zsh-antigen/antigen.zsh
 fi
 antigen use oh-my-zsh
 antigen bundle git
