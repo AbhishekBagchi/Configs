@@ -43,3 +43,6 @@
 [submodule "home/.vim/bundle/AnsiEsc"]
 	path = home/.vim/bundle/AnsiEsc
 	url = git@github.com:powerman/vim-plugin-AnsiEsc.git
+[submodule "home/.vim/bundle/vim-clang-format"]
+	path = home/.vim/bundle/vim-clang-format
+	url = git@github.com:rhysd/vim-clang-format.git
