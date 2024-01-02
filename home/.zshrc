@@ -176,15 +176,15 @@ update_font_size() {
     if [[ "$1" =~ ^-?[0-9]+$ ]] ; then
         # Check if MacOS
         if  [[ "$OSTYPE" == "darwin"* ]]; then
-            sed -E -i '' "s/(size: )(.*)/\1${1}/g" ~/.config/alacritty/alacritty.yml
+            sed -E -i '' "s/(size = )(.*)/\1${1}/g" ~/.config/alacritty/alacritty.toml
         else
-            sed -i "s/\(size: \)\(.*\)/\1${1}/g" ~/.config/alacritty/alacritty.yml
+            sed -i "s/\(size = \)\(.*\)/\1${1}/g" ~/.config/alacritty/alacritty.toml
         fi
     fi
 }
 
 get_font_size() {
-    grep 'size: ' ~/.config/alacritty/alacritty.yml
+    grep 'size = ' ~/.config/alacritty/alacritty.toml
 }
 
 alias weekly_task='task end.after:today-1wk completed'
