@@ -5,7 +5,7 @@ if  [[ "$OSTYPE" == "darwin"* ]]; then
         source /opt/homebrew/opt/antigen/share/antigen/antigen.zsh
     else
         echo "This antigen setup needs verification, and should be deprecated"
-        source /usr/local/bin/brew/opt/antigen/share/antigen/antigen.zsh
+        source /opt/brew/share/antigen/antigen.zsh
     fi
 else
     source /usr/share/zsh-antigen/antigen.zsh
