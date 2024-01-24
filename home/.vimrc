@@ -98,6 +98,7 @@ set statusline+=[%{strlen(&ft)?&ft:'none'},  " filetype
 set statusline+=%{&fileformat}]              " file format
 set statusline+=%=                           " right align
 set statusline+=%{FugitiveStatusline()}      " fugitive
+set statusline+=%{ObsessionStatus()}      " fugitive
 set statusline+=%{synIDattr(synID(line('.'),col('.'),1),'name')}\  " highlight
 
 " Unset highlighting after search
@@ -148,6 +149,18 @@ autocmd VimEnter * silent !echo -ne "\e[2 q"
 autocmd FileType gitcommit :setlocal spell spelllang=en_gb
 augroup END
 
+
+autocmd User SignifyHunk call s:show_current_hunk()
+
+" Show hunk number usimg SignifyHunk
+" Triggered when jumping to hunk by ]c
+function! s:show_current_hunk() abort
+  let h = sy#util#get_hunk_stats()
+  if !empty(h)
+    echo printf('[Hunk %d/%d]', h.current_hunk, h.total_hunks)
+  endif
+endfunction
+
 let g:cpp_class_scope_highlight = 1
 let g:cpp_member_variable_highlight = 1
 
@@ -177,3 +190,8 @@ nnoremap <leader>dh :LspHover<cr>
 if filereadable(expand("~/.vimrc.extra"))
     source ~/.vimrc.extra
 endif
+
+" Additional C++ highlighting
+let g:cpp_class_scope_highlight = 1
+let g:cpp_member_variable_highlight = 1
+let g:cpp_class_decl_highlight = 1
