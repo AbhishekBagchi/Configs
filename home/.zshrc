@@ -159,6 +159,16 @@ function wait_for_pid_and_run {
     fi
 }
 
+function prepend_date {
+    name=${1}
+    echo `date +'%F_%H_%M'`_${name}
+}
+
+function append_date {
+    name=${1}
+    echo ${name}_`date +'%F_%H_%M'`
+}
+
 path_append() {
     if [ -d "$1" ] && [[ ":$PATH:" != *":$1:"* ]]; then
         PATH="${PATH:+"$PATH:"}$1"
