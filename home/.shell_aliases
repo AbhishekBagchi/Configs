@@ -21,7 +21,7 @@ alias zshrc_source="source ~/.zshrc"
 alias run_ctags='ctags -F --recurse -h +tcc --c++-kinds=+p --fields=+iaS --extras=+q'
 
 #Tmux shortcuts
-alias ta="tmux attach -t"
-alias tls="tmux list-sessions"
+alias tma="tmux attach -t"
+alias tmls="tmux list-sessions"
 
 # vim: set filetype=zsh :
