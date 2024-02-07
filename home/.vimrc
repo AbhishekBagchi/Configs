@@ -195,3 +195,13 @@ endif
 let g:cpp_class_scope_highlight = 1
 let g:cpp_member_variable_highlight = 1
 let g:cpp_class_decl_highlight = 1
+
+" Python useful mappings
+" [[ Jump backwards to begin of current/previous toplevel
+" [] Jump backwards to end of previous toplevel
+" ][ Jump forwards to end of current toplevel
+" ]] Jump forwards to begin of next toplevel
+" [m Jump backwards to begin of current/previous method/scope
+" [M Jump backwards to end of previous method/scope
+" ]M Jump forwards to end of current/next method/scope
+" ]m Jump forwards to begin of next method/scope
