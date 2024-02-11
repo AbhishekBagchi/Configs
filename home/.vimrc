@@ -180,7 +180,7 @@ nnoremap <leader>dp :LspPeekDefinition<cr>
 nnoremap <leader>dci :LspCallHierarchyIncoming<cr>
 nnoremap <leader>dco :LspCallHierarchyOutgoing<cr>
 " nnoremap <leader>da :LspCodeAction<cr>
-nnoremap <leader>dh :LspHover<cr>
+" nnoremap <leader>dh :LspHover<cr>
 " nnoremap <leader>df :LspDocumentFormat<cr>
 
 " set runtimepath-=~/.vim/bundle/csv
