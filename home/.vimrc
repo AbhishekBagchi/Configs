@@ -181,7 +181,7 @@ nnoremap <leader>dci :LspCallHierarchyIncoming<cr>
 nnoremap <leader>dco :LspCallHierarchyOutgoing<cr>
 nnoremap <leader>da :LspCodeAction<cr>
 nnoremap <leader>dh :LspHover<cr>
-" nnoremap <leader>df :LspDocumentFormat<cr>
+nnoremap <leader>df :LspDocumentFormat<cr>
 
 " set runtimepath-=~/.vim/bundle/csv
 " set runtimepath-=~/.vim/bundle/vim-lsp
@@ -195,6 +195,9 @@ endif
 let g:cpp_class_scope_highlight = 1
 let g:cpp_member_variable_highlight = 1
 let g:cpp_class_decl_highlight = 1
+
+" context.vim
+let g:context_enabled = 0
 
 " Python useful mappings
 " [[ Jump backwards to begin of current/previous toplevel
