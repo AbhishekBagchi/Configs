@@ -141,6 +141,10 @@ function vivsplit {
     vim -O $1{${header_ext},${source_ext}}
 }
 
+function vimdiff_sorted {
+    vimdiff <(sort ${1}) <(sort ${2})
+}
+
 # Example -> sleep 120 &; wait_for_pid_and_run $(get_pid sleep) echo "Sleep done"
 function get_pid {
     echo $(ps aux | grep "$1" | grep -v grep | awk '{print $2}' | head -n1)
