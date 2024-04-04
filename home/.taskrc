@@ -30,7 +30,7 @@ data.location=~/.task
 #include /usr/share/doc/task/rc/no-color.theme
 report.list.sort=urgency-,start-,due+,project+
 
-urgency.user.tag.immediately.coefficient=5.0
+urgency.user.tag.immediately.coefficient=10.0
 urgency.user.tag.blocked_other.coefficient=-5.0
 color.tag.blocked_other=color0 on color10
 report.next.filter     =status:pending limit:page -blocked_other -someday
