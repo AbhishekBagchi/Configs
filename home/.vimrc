@@ -7,6 +7,31 @@ set nocompatible
 runtime bundle/vim-pathogen/autoload/pathogen.vim
 execute pathogen#infect()
 
+" Themes
+if (has("termguicolors"))
+    set termguicolors
+endif
+
+" Highlight trailing whitespace.
+au ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
+au BufRead,BufNewFile *.py,*.pyw,*.c,*.h,*.cpp,*.hpp,*.cc,*.hh match ExtraWhitespace /\s\+$/
+au BufEnter * match ExtraWhitespace /\s\+$/
+au InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+au InsertLeave * match ExtraWhiteSpace /\s\+$/
+
+set background=dark
+"
+" After colorscheme so that this color doesn't get overriden
+set colorcolumn=150
+highlight ColorColumn ctermbg=red
+
+let g:gruvbox_italic=1
+colorscheme gruvbox
+
+if &diff
+    colorscheme industry
+endif
+
 "{{{ Misc Settings
 "
 set backspace=indent,eol,start
@@ -20,8 +45,8 @@ set foldmethod=syntax
 autocmd FileType python setlocal foldmethod=indent
 
 " Show matching brackets
-set showmatch
-set matchtime=3
+" set showmatch
+" set matchtime=3
 
 " ctags stuff
 set autochdir
@@ -44,8 +69,8 @@ set smarttab
 
 " Use english for spellchecking, but don't spellcheck by default
 if version >= 700
-   set spl=en spell
-   set nospell
+    set spl=en spell
+    set nospell
 endif
 
 " Tab completion
@@ -79,9 +104,9 @@ set nohidden
 " Show line numbers
 set number relativenumber
 augroup numbertoggle
-  autocmd!
-  autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
-  autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
+    autocmd!
+    autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
+    autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
 augroup END
 
 " Set off the other paren
@@ -98,8 +123,16 @@ set statusline+=[%{strlen(&ft)?&ft:'none'},  " filetype
 set statusline+=%{&fileformat}]              " file format
 set statusline+=%=                           " right align
 set statusline+=%{FugitiveStatusline()}      " fugitive
-set statusline+=%{ObsessionStatus()}      " fugitive
-set statusline+=%{synIDattr(synID(line('.'),col('.'),1),'name')}\  " highlight
+set statusline+=%{ObsessionStatus()}         " fugitive
+set statusline+=%{synidattr(synid(line('.'),col('.'),1),'name')}\  " highlight
+
+" TODO Deprecate above
+let g:airline_section_y = '%{bufnr("%")} %{ObsessionStatus()}'
+
+" CtrlP invocation
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlP'
+let g:ctrlp_working_path_mode = 'ra'
 
 " Unset highlighting after search
 nnoremap <CR> :noh<CR><CR>
@@ -110,28 +143,12 @@ nnoremap <F2> :match StatusLineTerm /<C-R><C-W>/<CR>
 " Case sensitive
 set noic
 
-" Highlight trailing whitespace.
-au ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
-au BufRead,BufNewFile *.py,*.pyw,*.c,*.h,*.cpp,*.hpp,*.cc,*.hh match ExtraWhitespace /\s\+$/
-au BufEnter * match ExtraWhitespace /\s\+$/
-au InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
-au InsertLeave * match ExtraWhiteSpace /\s\+$/
-
 " Remove Trailing whitespace
 nnoremap <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
 
 set nowrap
 
 filetype plugin indent on
-
-colorscheme slate
-if &diff
-    colorscheme industry
-endif
-
-" After colorscheme so that this color doesn't get overriden
-set colorcolumn=150
-highlight ColorColumn ctermbg=red
 
 set pastetoggle=<F8>
 
@@ -144,9 +161,9 @@ nmap <F7> :TagbarToggle<CR>
 
 " optional reset cursor on start:
 augroup myCmds
-au!
-autocmd VimEnter * silent !echo -ne "\e[2 q"
-autocmd FileType gitcommit :setlocal spell spelllang=en_gb
+    au!
+    autocmd VimEnter * silent !echo -ne "\e[2 q"
+    autocmd FileType gitcommit :setlocal spell spelllang=en_gb
 augroup END
 
 
@@ -155,10 +172,10 @@ autocmd User SignifyHunk call s:show_current_hunk()
 " Show hunk number usimg SignifyHunk
 " Triggered when jumping to hunk by ]c
 function! s:show_current_hunk() abort
-  let h = sy#util#get_hunk_stats()
-  if !empty(h)
-    echo printf('[Hunk %d/%d]', h.current_hunk, h.total_hunks)
-  endif
+    let h = sy#util#get_hunk_stats()
+    if !empty(h)
+        echo printf('[Hunk %d/%d]', h.current_hunk, h.total_hunks)
+    endif
 endfunction
 
 let g:cpp_class_scope_highlight = 1
@@ -183,9 +200,8 @@ nnoremap <leader>da :LspCodeAction<cr>
 nnoremap <leader>dh :LspHover<cr>
 nnoremap <leader>df :LspDocumentFormat<cr>
 
-" set runtimepath-=~/.vim/bundle/csv
-" set runtimepath-=~/.vim/bundle/vim-lsp
-" set runtimepath-=~/.vim/bundle/vim-lsp-settings
+" Theme
+let g:airline_theme='luna'
 
 if filereadable(expand("~/.vimrc.extra"))
     source ~/.vimrc.extra
@@ -208,3 +224,9 @@ let g:context_enabled = 0
 " [M Jump backwards to end of previous method/scope
 " ]M Jump forwards to end of current/next method/scope
 " ]m Jump forwards to begin of next method/scope
+
+" let g:loaded_matchparen=1
+
+" set runtimepath-=~/.vim/bundle/csv
+" set runtimepath-=~/.vim/bundle/vim-lsp
+" set runtimepath-=~/.vim/bundle/vim-lsp-settings
