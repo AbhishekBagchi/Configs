@@ -25,7 +25,7 @@ export EDITOR='vim'
 HISTFILE=~/.histfile
 HISTSIZE=10000000
 SAVEHIST=10000000
-setopt sharehistory appendhistory extendedglob nomatch
+setopt sharehistory appendhistory extendedglob nomatch menucomplete
 unsetopt autocd
 
 # The following lines were added by compinstall
@@ -62,6 +62,10 @@ bindkey '^w' backward-kill-word
 
 # User specific aliases and functions
 setopt PROMPT_SUBST
+function get_git_branch {
+    git rev-parse --abbrev-ref HEAD
+}
+
 function parse_git_branch_and_add_brackets {
   git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\ \[\1\]/'
 }
@@ -72,6 +76,13 @@ bindkey "^R" history-incremental-pattern-search-backward
 
 # Autocomplete colours
 zstyle -e ':completion:*:default' list-colors 'reply=("${PREFIX:+=(#bi)($PREFIX:t)(?)*==34=34}:${(s.:.)LS_COLORS}")'
+
+# Sort files by modification date
+zstyle ':completion:*' file-sort modification
+
+# Include hidden files
+#_comp_options+=(globdots)
+
 
 # Setup the correct homebrew if macos
 # This is here because it's needed later in the file, so .shell_aliases would be too late
@@ -173,16 +184,15 @@ function append_date {
     echo ${name}_`date +'%F_%H_%M'`
 }
 
-path_append() {
+function path_append() {
     if [ -d "$1" ] && [[ ":$PATH:" != *":$1:"* ]]; then
         PATH="${PATH:+"$PATH:"}$1"
     fi
 }
 
-path_prepend() {
-    if [ -d "$1" ] && [[ ":$PATH:" != *":$1:"* ]]; then
-        PATH="$1${PATH:+":$PATH"}"
-    fi
+function path_prepend() {
+    # Always prepend
+    PATH="$1${PATH:+":$PATH"}"
 }
 
 update_font_size() {
@@ -272,3 +282,7 @@ fi
 if [[ -a ~/.zshrc.extra ]] then
     source ~/.zshrc.extra
 fi
+
+DISABLE_AUTO_TITLE="true" # Disable auto-setting terminal title.
+COMPLETION_WAITING_DOTS="true" # Display red dots whilst waiting for completion.
+setopt HIST_IGNORE_ALL_DUPS
