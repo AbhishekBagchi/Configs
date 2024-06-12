@@ -52,12 +52,6 @@
 [submodule "home/.vim/bundle/vim-tmux-navigator.git"]
 	path = home/.vim/bundle/vim-tmux-navigator.git
 	url = git@github.com:christoomey/vim-tmux-navigator.git
-[submodule "home/.vim/bundle/vim-airline-themes.git"]
-	path = home/.vim/bundle/vim-airline-themes.git
-	url = git@github.com:vim-airline/vim-airline-themes.git
-[submodule "home/.vim/bundle/vim-airline.git"]
-	path = home/.vim/bundle/vim-airline.git
-	url = git@github.com:vim-airline/vim-airline.git
 [submodule "home/.vim/bundle/ctrlp.vim"]
 	path = home/.vim/bundle/ctrlp.vim
 	url = git@github.com:ctrlpvim/ctrlp.vim.git
