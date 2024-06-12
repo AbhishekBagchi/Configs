@@ -112,22 +112,45 @@ augroup END
 " Set off the other paren
 highlight MatchParen ctermbg=4
 
+function! StatuslineMode()
+  let l:mode=mode()
+  if l:mode==#"n"
+    return "NORMAL"
+  elseif l:mode==?"v"
+    return "VISUAL"
+  elseif l:mode==#"i"
+    return "INSERT"
+  elseif l:mode==#"R"
+    return "REPLACE"
+  elseif l:mode==?"s"
+    return "SELECT"
+  elseif l:mode==#"t"
+    return "TERMINAL"
+  elseif l:mode==#"c"
+    return "COMMAND"
+  elseif l:mode==#"!"
+    return "SHELL"
+  endif
+endfunction
+
 " Status line
 set laststatus=2
 set statusline=   " clear the statusline for when vimrc is reloaded
+set statusline+=%-3.3{winnr()}               " window number
 set statusline+=%-3.3n\                      " buffer number
+set statusline+=%6{StatuslineMode()}\        " mode
 set statusline+=%F\                          " file name
-set statusline+=%l/%c/%L                     " cursor line/total lines
-set statusline+=%h%m%r%w                     " flags
+set statusline+=%l/%c/%L/%P\                 " cursor line/total lines
+set statusline+=%h%m%r%w\                    " flags, help, modified, readonly
 set statusline+=[%{strlen(&ft)?&ft:'none'},  " filetype
 set statusline+=%{&fileformat}]              " file format
 set statusline+=%=                           " right align
 set statusline+=%{FugitiveStatusline()}      " fugitive
 set statusline+=%{ObsessionStatus()}         " fugitive
-set statusline+=%{synidattr(synid(line('.'),col('.'),1),'name')}\  " highlight
+" set statusline+=%{synidattr(synid(line('.'),col('.'),1),'name')}\  " highlight
 
-" TODO Deprecate above
-let g:airline_section_y = '%{bufnr("%")} %{ObsessionStatus()}'
+" The status line now has the mode, so another mode isn't needed
+set noshowmode
 
 " CtrlP invocation
 let g:ctrlp_map = '<c-p>'
@@ -188,20 +211,17 @@ endif
 
 " vim lsp
 " leader is \
-nnoremap <leader>dd :LspDefinition<cr>
-nnoremap <leader>dn :LspNextDiagnostic<cr>
-nnoremap <leader>dp :LspPreviousDiagnostic<cr>
-nnoremap <leader>dr :LspRename<cr>
-nnoremap <leader>ds :LspStopServer<cr>
-nnoremap <leader>dp :LspPeekDefinition<cr>
+nnoremap <leader>dd  :LspDefinition<cr>
+nnoremap <leader>dn  :LspNextDiagnostic<cr>
+nnoremap <leader>dp  :LspPreviousDiagnostic<cr>
+nnoremap <leader>dr  :LspRename<cr>
+nnoremap <leader>ds  :LspStopServer<cr>
+nnoremap <leader>dp  :LspPeekDefinition<cr>
 nnoremap <leader>dci :LspCallHierarchyIncoming<cr>
 nnoremap <leader>dco :LspCallHierarchyOutgoing<cr>
-nnoremap <leader>da :LspCodeAction<cr>
-nnoremap <leader>dh :LspHover<cr>
-nnoremap <leader>df :LspDocumentFormat<cr>
-
-" Theme
-let g:airline_theme='luna'
+nnoremap <leader>da  :LspCodeAction<cr>
+nnoremap <leader>dh  :LspHover<cr>
+nnoremap <leader>df  :LspDocumentFormat<cr>
 
 if filereadable(expand("~/.vimrc.extra"))
     source ~/.vimrc.extra
@@ -214,6 +234,9 @@ let g:cpp_class_decl_highlight = 1
 
 " context.vim
 let g:context_enabled = 0
+
+" vim-signify update time
+set updatetime=100
 
 " Python useful mappings
 " [[ Jump backwards to begin of current/previous toplevel
