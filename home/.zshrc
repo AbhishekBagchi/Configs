@@ -216,7 +216,7 @@ alias weekly_task='task end.after:today-1wk completed'
 if  [[ "$OSTYPE" == "darwin"* ]]; then
     arch=$(arch)
     if [[ "$arch" == "arm64" ]]; then
-        coreutils_path=/opt/homebrew/Cellar/coreutils/9.3/libexec/gnubin
+        coreutils_path=$(brew info coreutils |& grep -A1 Installed | tail -n 1 | cut -f1 -d ' ')
         if [ -d "$coreutils_path" ] && [[ ":$PATH:" != *"$coreutils_path"* ]] ; then
             path_prepend $coreutils_path
         fi
@@ -282,6 +282,21 @@ fi
 if [[ -a ~/.zshrc.extra ]] then
     source ~/.zshrc.extra
 fi
+
+#Setup fzf
+source <(fzf --zsh)
+export FZF_DEFAULT_OPTS='--height 40% --tmux bottom,40% --layout reverse --border top'
+# Use fd (https://github.com/sharkdp/fd) for listing path candidates.
+# - The first argument to the function ($1) is the base path to start traversal
+# - See the source code (completion.{bash,zsh}) for the details.
+_fzf_compgen_path() {
+  fd --hidden --follow --exclude ".git" . "$1"
+}
+
+# Use fd to generate the list for directory completion
+_fzf_compgen_dir() {
+  fd --type d --hidden --follow --exclude ".git" . "$1"
+}
 
 DISABLE_AUTO_TITLE="true" # Disable auto-setting terminal title.
 COMPLETION_WAITING_DOTS="true" # Display red dots whilst waiting for completion.
