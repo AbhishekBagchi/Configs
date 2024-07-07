@@ -114,23 +114,29 @@ highlight MatchParen ctermbg=4
 
 function! StatuslineMode()
   let l:mode=mode()
+  let l:m=""
   if l:mode==#"n"
-    return "NORMAL"
+    let l:m="NORMAL"
   elseif l:mode==?"v"
-    return "VISUAL"
+    let l:m="VISUAL"
   elseif l:mode==#"i"
-    return "INSERT"
+    let l:m="INSERT"
   elseif l:mode==#"R"
-    return "REPLACE"
+    let l:m="REPLACE"
   elseif l:mode==?"s"
-    return "SELECT"
+    let l:m="SELECT"
   elseif l:mode==#"t"
-    return "TERMINAL"
+    let l:m="TERMINAL"
   elseif l:mode==#"c"
-    return "COMMAND"
+    let l:m="COMMAND"
   elseif l:mode==#"!"
-    return "SHELL"
+    let l:m="SHELL"
   endif
+  if &paste ==#	1
+      let l:mode_return = l:m . " (PASTE) "
+      return l:mode_return
+  endif
+  return l:m
 endfunction
 
 " Status line
@@ -253,3 +259,8 @@ set updatetime=100
 " set runtimepath-=~/.vim/bundle/csv
 " set runtimepath-=~/.vim/bundle/vim-lsp
 " set runtimepath-=~/.vim/bundle/vim-lsp-settings
+if has('unix')
+  if has('mac')
+    set rtp+=/opt/homebrew/opt/fzf
+  endif
+endif
