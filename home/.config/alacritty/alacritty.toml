@@ -649,6 +649,7 @@ decorations = "full"
 decorations_theme_variant = "Dark"
 dynamic_padding = true
 startup_mode = "Maximized"
+option_as_alt = "Both"
 
 [window.dimensions]
 columns = 0
