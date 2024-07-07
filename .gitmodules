@@ -61,3 +61,9 @@
 [submodule "home/.vim/bundle/fzf.vim.git"]
 	path = home/.vim/bundle/fzf.vim.git
 	url = https://github.com/junegunn/fzf.vim.git
+[submodule "home/.vim/bundle/vim-indent-guides"]
+	path = home/.vim/bundle/vim-indent-guides
+	url = https://github.com/preservim/vim-indent-guides.git
+[submodule "home/.vim/bundle/vim-buftabline"]
+	path = home/.vim/bundle/vim-buftabline
+	url = https://github.com/ap/vim-buftabline.git
