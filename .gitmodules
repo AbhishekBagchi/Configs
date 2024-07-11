@@ -67,3 +67,9 @@
 [submodule "home/.vim/bundle/vim-buftabline"]
 	path = home/.vim/bundle/vim-buftabline
 	url = https://github.com/ap/vim-buftabline.git
+[submodule "home/.vim/bundle/context.vim"]
+	path = home/.vim/bundle/context.vim
+	url = https://github.com/wellle/context.vim.git
+[submodule "home/.vim/bundle/jedi-vim"]
+	path = home/.vim/bundle/jedi-vim
+	url = https://github.com/davidhalter/jedi-vim.git
