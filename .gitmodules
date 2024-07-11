@@ -50,7 +50,7 @@
 	path = home/.vim/bundle/vim-commentary
 	url = git@github.com:tpope/vim-commentary.git
 [submodule "home/.vim/bundle/vim-tmux-navigator.git"]
-	path = home/.vim/bundle/vim-tmux-navigator.git
+	path = home/.vim/bundle/vim-tmux-navigator
 	url = git@github.com:christoomey/vim-tmux-navigator.git
 [submodule "home/.vim/bundle/ctrlp.vim"]
 	path = home/.vim/bundle/ctrlp.vim
@@ -59,7 +59,7 @@
 	path = home/.vim/bundle/gruvbox
 	url = https://github.com/morhetz/gruvbox.git
 [submodule "home/.vim/bundle/fzf.vim.git"]
-	path = home/.vim/bundle/fzf.vim.git
+	path = home/.vim/bundle/fzf.vim
 	url = https://github.com/junegunn/fzf.vim.git
 [submodule "home/.vim/bundle/vim-indent-guides"]
 	path = home/.vim/bundle/vim-indent-guides
