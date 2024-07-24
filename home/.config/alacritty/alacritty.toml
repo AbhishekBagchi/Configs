@@ -37,7 +37,7 @@ style = "Italic"
 
 [font.normal]
 family = "Inconsolata"
-style = "Light"
+style = "Regular"
 
 [font.offset]
 x = 0
