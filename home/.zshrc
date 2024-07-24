@@ -199,16 +199,20 @@ update_font_size() {
     # Check if integer
     if [[ "$1" =~ ^-?[0-9]+$ ]] ; then
         # Check if MacOS
+        # FIXME Check if wezterm or alacritty
         if  [[ "$OSTYPE" == "darwin"* ]]; then
             sed -E -i '' "s/(size = )(.*)/\1${1}/g" ~/.config/alacritty/alacritty.toml
+            sed -E -i '' "s/(config.font_size = )(.*)/\1${1}/g" ~/.wezterm.lua
         else
             sed -i "s/\(size = \)\(.*\)/\1${1}/g" ~/.config/alacritty/alacritty.toml
+            sed -i "s/\(config.font_size = \)\(.*\)/\1${1}/g" ~/.wezterm.lua
         fi
     fi
 }
 
 get_font_size() {
     grep 'size = ' ~/.config/alacritty/alacritty.toml
+    grep 'config.font_size = ' ~/.wezterm.lua
 }
 
 alias weekly_task='task end.after:today-1wk completed'
