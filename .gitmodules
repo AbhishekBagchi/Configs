@@ -52,9 +52,6 @@
 [submodule "home/.vim/bundle/vim-tmux-navigator.git"]
 	path = home/.vim/bundle/vim-tmux-navigator
 	url = git@github.com:christoomey/vim-tmux-navigator.git
-[submodule "home/.vim/bundle/ctrlp.vim"]
-	path = home/.vim/bundle/ctrlp.vim
-	url = git@github.com:ctrlpvim/ctrlp.vim.git
 [submodule "home/.vim/bundle/gruvbox"]
 	path = home/.vim/bundle/gruvbox
 	url = https://github.com/morhetz/gruvbox.git
