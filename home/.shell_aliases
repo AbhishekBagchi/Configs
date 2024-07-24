@@ -26,4 +26,5 @@ alias tm:ls="tmux list-sessions"
 alias tm:new="tmux new-session -s"
 alias tm:kill="tmux kill-session -t"
 
+alias imgcat="wezterm imgcat"
 # vim: set filetype=zsh :
