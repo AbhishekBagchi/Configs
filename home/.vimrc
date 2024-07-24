@@ -1,11 +1,11 @@
-set expandtab
-
 " Necesary for lots of cool vim things
 set nocompatible
 
 " Use Pathogen from non-default path
 runtime bundle/vim-pathogen/autoload/pathogen.vim
 execute pathogen#infect()
+
+set expandtab
 
 " Themes
 if (has("termguicolors"))
@@ -20,10 +20,6 @@ au InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
 au InsertLeave * match ExtraWhiteSpace /\s\+$/
 
 set background=dark
-"
-" After colorscheme so that this color doesn't get overriden
-set colorcolumn=150
-highlight ColorColumn ctermbg=red
 
 let g:gruvbox_italic=1
 colorscheme gruvbox
@@ -31,6 +27,11 @@ colorscheme gruvbox
 if &diff
     colorscheme industry
 endif
+
+" After colorscheme so that this color doesn't get overriden
+set colorcolumn=150
+autocmd BufNewFile,BufRead *.py set colorcolumn=120
+highlight ColorColumn ctermbg=red
 
 "{{{ Misc Settings
 "
@@ -256,11 +257,48 @@ set updatetime=100
 
 " let g:loaded_matchparen=1
 
-" set runtimepath-=~/.vim/bundle/csv
-" set runtimepath-=~/.vim/bundle/vim-lsp
-" set runtimepath-=~/.vim/bundle/vim-lsp-settings
 if has('unix')
   if has('mac')
     set rtp+=/opt/homebrew/opt/fzf
   endif
 endif
+
+let g:jedi#completions_command = "<C-N>"
+let g:jedi#show_call_signatures = "1"
+
+" Disable asynccomplete autopopup, Tab to complete
+let g:asyncomplete_auto_popup = 0
+function! s:check_back_space() abort
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1]  =~ '\s'
+endfunction
+
+inoremap <silent><expr> <TAB>
+  \ pumvisible() ? "\<C-n>" :
+  \ <SID>check_back_space() ? "\<TAB>" :
+  \ asyncomplete#force_refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+" allow modifying the completeopt variable, or it will
+" be overridden all the time
+let g:asyncomplete_auto_completeopt = 0
+
+set completeopt=menuone,noinsert,noselect,preview
+autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
+
+" clang-format
+let g:clang_format#detect_style_file = 1
+let g:clang_format#auto_format = 1
+autocmd FileType cpp ClangFormatAutoEnable
+
+let g:validator_python_checkers = ['flake8']
+" let g:validator_cpp_checkers = ['clang-tidy']
+let g:validator_auto_open_quickfix = 1
+let g:validator_permament_sign = 1
+let g:validator_python_flake8_args = '--max-line-length=120 --extend-ignore=F403,F405,E203'
+
+" set runtimepath-=~/.vim/bundle/vim-lsp
+" set runtimepath-=~/.vim/bundle/vim-lsp-settings
+" set runtimepath-=~/.vim/bundle/asynccomplete
+" set runtimepath-=~/.vim/bundle/asynccomplete-vim
+" set runtimepath-=~/.vim/bundle/csv

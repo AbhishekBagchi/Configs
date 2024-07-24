@@ -70,3 +70,9 @@
 [submodule "home/.vim/bundle/jedi-vim"]
 	path = home/.vim/bundle/jedi-vim
 	url = https://github.com/davidhalter/jedi-vim.git
+[submodule "home/.vim/bundle/validator.vim"]
+	path = home/.vim/bundle/validator.vim
+	url = https://github.com/maralla/validator.vim.git
+[submodule "home/.vim/bundle/black"]
+	path = home/.vim/bundle/black
+	url = https://github.com/psf/black.git
