@@ -12,6 +12,7 @@ config.color_scheme = 'Apprentice (Gogh)'
 config.color_scheme = 'Atelier Estuary Light (base16)'
 config.color_scheme = 'Alabaster'
 config.color_scheme = 'Afterglow'
+config.color_scheme = 'Catppuccin Frappe'
 
 config.enable_scroll_bar = true
 
@@ -23,7 +24,7 @@ config.window_padding = {
 }
 
 config.font = wezterm.font 'Inconsolata'
-config.font_size = 14
+config.font_size = 18
 
 config.window_decorations = "TITLE | RESIZE"
 
