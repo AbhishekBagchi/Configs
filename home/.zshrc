@@ -69,7 +69,7 @@ function get_git_branch {
 function parse_git_branch_and_add_brackets {
   git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\ \[\1\]/'
 }
-PROMPT='[%F{red}%n@%M%f:%F{yellow}%~%f:%F{green}$(parse_git_branch_and_add_brackets)%f]
+PROMPT='[%F{red}%n@%M%f:%F{yellow}%~%f: %F{green}$(parse_git_branch_and_add_brackets)%f]
 %# '
 
 bindkey "^R" history-incremental-pattern-search-backward
@@ -156,6 +156,10 @@ function vimdiff_sorted {
     vimdiff <(sort ${1}) <(sort ${2})
 }
 
+function diff_sorted {
+    diff <(sort ${1}) <(sort ${2})
+}
+
 # Example -> sleep 120 &; wait_for_pid_and_run $(get_pid sleep) echo "Sleep done"
 function get_pid {
     echo $(ps aux | grep "$1" | grep -v grep | awk '{print $2}' | head -n1)
@@ -176,10 +180,20 @@ function wait_for_pid_and_run {
 
 function prepend_date {
     name=${1}
-    echo `date +'%F_%H_%M'`_${name}
+    echo `date +'%F'`_${name}
 }
 
 function append_date {
+    name=${1}
+    echo ${name}_`date +'%F'`
+}
+
+function prepend_date_and_time {
+    name=${1}
+    echo `date +'%F_%H_%M'`_${name}
+}
+
+function append_date_and_time {
     name=${1}
     echo ${name}_`date +'%F_%H_%M'`
 }
@@ -289,7 +303,10 @@ fi
 
 #Setup fzf
 source <(fzf --zsh)
-export FZF_DEFAULT_OPTS='--height 40% --tmux bottom,40% --layout reverse --border top'
+export FZF_DEFAULT_OPTS="--height 40% --tmux bottom,40% --layout reverse --border top \
+--color=bg+:#414559,bg:#303446,spinner:#f2d5cf,hl:#e78284 \
+--color=fg:#c6d0f5,header:#e78284,info:#ca9ee6,pointer:#f2d5cf \
+--color=marker:#f2d5cf,fg+:#c6d0f5,prompt:#ca9ee6,hl+:#e78284"
 # Use fd (https://github.com/sharkdp/fd) for listing path candidates.
 # - The first argument to the function ($1) is the base path to start traversal
 # - See the source code (completion.{bash,zsh}) for the details.
@@ -301,6 +318,12 @@ _fzf_compgen_path() {
 _fzf_compgen_dir() {
   fd --type d --hidden --follow --exclude ".git" . "$1"
 }
+
+export PATH=/opt/homebrew/bin:$PATH
+path_prepend /opt/homebrew/opt/ccache/libexec
+path_prepend "$(brew --prefix python)"/libexec/bin
+
+export PYTHONSTARTUP="$(python3 -m jedi repl)"
 
 DISABLE_AUTO_TITLE="true" # Disable auto-setting terminal title.
 COMPLETION_WAITING_DOTS="true" # Display red dots whilst waiting for completion.
