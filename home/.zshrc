@@ -80,8 +80,9 @@ function get_git_branch {
 function parse_git_branch_and_add_brackets {
   git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\ \[\1\]/'
 }
-PROMPT='[%F{red}%n@%M%f:%F{yellow}%~%f: %F{green}$(parse_git_branch_and_add_brackets)%f]
+PROMPT='[%F{red}%n@%m%f: %F{yellow}%~%f :%F{green}$(parse_git_branch_and_add_brackets)%f]
 %# '
+RPROMPT='(%!)'
 
 bindkey "^R" history-incremental-pattern-search-backward
 
