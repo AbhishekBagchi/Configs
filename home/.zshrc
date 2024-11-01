@@ -35,17 +35,6 @@ autoload -Uz compinit
 compinit
 # End of lines added by compinstall
 
-arch_name="$(uname -m)"
-if  [[ "$OSTYPE" == "darwin"* ]]; then
-    if  [[ "$arch_name" == "arm64"* ]]; then
-        path_prepend /opt/homebrew/bin/
-        #export PATH="/opt/homebrew/bin/":$PATH
-    else
-        path_prepend /usr/local/bin/
-        #export PATH="/usr/local/bin/":$PATH
-    fi
-fi
-
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
@@ -80,9 +69,8 @@ function get_git_branch {
 function parse_git_branch_and_add_brackets {
   git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\ \[\1\]/'
 }
-PROMPT='[%F{red}%n@%m%f: %F{yellow}%~%f :%F{green}$(parse_git_branch_and_add_brackets)%f]
+PROMPT='[%F{red}%n@%m%f: %F{yellow}%~%f :%F{green}$(parse_git_branch_and_add_brackets) $(git_prompt_short_sha) %f]
 %# '
-RPROMPT='(%!)'
 
 bindkey "^R" history-incremental-pattern-search-backward
 
@@ -305,6 +293,14 @@ zstyle ':completion:*' verbose true
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 
+if [[ -a ~/.shell_aliases ]] then
+    source ~/.shell_aliases
+fi
+
+if [[ -a ~/.zshrc.extra ]] then
+    source ~/.zshrc.extra
+fi
+
 #Setup fzf
 source <(fzf --zsh)
 export FZF_DEFAULT_OPTS="--height 40% --tmux bottom,40% --layout reverse --border top \
@@ -323,6 +319,14 @@ _fzf_compgen_dir() {
   fd --type d --hidden --follow --exclude ".git" . "$1"
 }
 
+# FZF
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  # modified from from $(fzf-share)/key-bindings.bash
+  # see https://github.com/junegunn/fzf/issues/164#issuecomment-1324505215
+  # ALT-C - cd into the selected directory
+  bindkey "ç" fzf-cd-widget
+fi
+
 export PATH=/opt/homebrew/bin:$PATH
 path_prepend /opt/homebrew/opt/ccache/libexec
 path_prepend "$(brew --prefix python)"/libexec/bin
@@ -332,11 +336,3 @@ export PYTHONSTARTUP="$(python3 -m jedi repl)"
 DISABLE_AUTO_TITLE="true" # Disable auto-setting terminal title.
 COMPLETION_WAITING_DOTS="true" # Display red dots whilst waiting for completion.
 setopt HIST_IGNORE_ALL_DUPS
-
-if [[ -a ~/.shell_aliases ]] then
-    source ~/.shell_aliases
-fi
-
-if [[ -a ~/.zshrc.extra ]] then
-    source ~/.zshrc.extra
-fi
