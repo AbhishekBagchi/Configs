@@ -7,10 +7,23 @@ local config = wezterm.config_builder()
 
 -- This is where you actually apply your config choices
 
-config.color_scheme = 'Andromeda'
-config.color_scheme = 'Apprentice (Gogh)'
 config.color_scheme = 'Atelier Estuary Light (base16)'
 config.color_scheme = 'Alabaster'
+config.color_scheme = 'Apprentice (Gogh)'
+config.color_scheme = 'Solar Flare (base16)'
+config.color_scheme = 'Solar Flare Light (base16)'
+config.color_scheme = 'Solarized Darcula (Gogh)'
+config.color_scheme = 'Solarized Darcula (Gogh)'
+config.color_scheme = 'Default Dark (base16)'
+config.color_scheme = 'Solarized Dark - Patched'
+config.color_scheme = 'Dracula'
+config.color_scheme = 'Maia (Gogh)'
+config.color_scheme = 'Dimmed Monokai (Gogh)'
+config.color_scheme = 'Dracula+'
+config.color_scheme = 'Decaf (base16)'
+config.color_scheme = 'Desert (Gogh)'
+config.color_scheme = 'Dracula (Gogh)'
+config.color_scheme = 'Andromeda'
 config.color_scheme = 'Afterglow'
 config.color_scheme = 'Catppuccin Frappe'
 
@@ -24,7 +37,7 @@ config.window_padding = {
 }
 
 config.font = wezterm.font 'Inconsolata'
-config.font_size = 18
+config.font_size = 17
 
 config.window_decorations = "TITLE | RESIZE"
 
@@ -64,7 +77,9 @@ config.keys = {
       end),
     },
   },
+  { key = "Escape", mods = "CTRL", action = wezterm.action.ShowDebugOverlay },
 }
+
 config.canonicalize_pasted_newlines = "None"
 
 config.hyperlink_rules = {
