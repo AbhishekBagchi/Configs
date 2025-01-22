@@ -26,7 +26,16 @@ config.color_scheme = 'Dracula (Gogh)'
 config.color_scheme = 'Andromeda'
 config.color_scheme = 'Afterglow'
 config.color_scheme = 'Catppuccin Frappe'
+config.color_scheme = 'Solarized Dark - Patched'
+config.color_scheme = 'Gruvbox Dark (Gogh)'
+config.color_scheme = 'Atelier Estuary Light (base17)'
+config.color_scheme = 'Alabaster'
+config.color_scheme = 'Solar Flare (base16)'
+config.color_scheme = 'Solar Flare Light (base16)'
 
+config.color_scheme = 'Andromeda'
+
+config.color_scheme = 'Dimmed Monokai (Gogh)'
 config.enable_scroll_bar = true
 
 config.window_padding = {
