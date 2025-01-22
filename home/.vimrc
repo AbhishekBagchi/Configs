@@ -5,6 +5,7 @@ set nocompatible
 runtime bundle/vim-pathogen/autoload/pathogen.vim
 execute pathogen#infect()
 
+py3 import os; import sys; sys.executable="/opt/homebrew/opt/python@3.13/Frameworks/Python.framework/Versions/3.13/bin/python3.13"
 set expandtab
 
 " Themes
@@ -13,25 +14,29 @@ if (has("termguicolors"))
 endif
 
 " Highlight trailing whitespace.
-au ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
-au BufRead,BufNewFile *.py,*.pyw,*.c,*.h,*.cpp,*.hpp,*.cc,*.hh match ExtraWhitespace /\s\+$/
-au BufEnter * match ExtraWhitespace /\s\+$/
-au InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
-au InsertLeave * match ExtraWhiteSpace /\s\+$/
-
 set background=dark
 
 let g:gruvbox_italic=1
 colorscheme gruvbox
 
 if &diff
-    colorscheme industry
+    colorscheme koehler
 endif
 
 " After colorscheme so that this color doesn't get overriden
-set colorcolumn=150
-autocmd BufNewFile,BufRead *.py set colorcolumn=120
+set colorcolumn=120
+augroup py
+    autocmd!
+    autocmd BufNewFile,BufRead *.py set colorcolumn=120
+augroup end
 highlight ColorColumn ctermbg=red
+
+au ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
+au BufRead,BufNewFile *.py,*.pyw,*.c,*.h,*.cpp,*.hpp,*.cc,*.hh match ExtraWhitespace /\s\+$/
+au BufEnter * match ExtraWhitespace /\s\+$/
+au InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+au InsertLeave * match ExtraWhiteSpace /\s\+$/
+
 
 "{{{ Misc Settings
 "
@@ -42,8 +47,17 @@ set showcmd
 
 " Folding Stuffs
 set foldmethod=syntax
+
 " Fold on indent for python
-autocmd FileType python setlocal foldmethod=indent
+augroup python_indent
+    autocmd!
+    " Fold on indent for python
+    autocmd FileType python setlocal foldmethod=indent
+augroup end
+
+" Space to toggle folds in normal mode
+nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
+vnoremap <Space> zf
 
 " Show matching brackets
 " set showmatch
@@ -103,12 +117,12 @@ let g:clipbrdDefaultReg = '+'
 set nohidden
 
 " Show line numbers
-set number relativenumber
-augroup numbertoggle
-    autocmd!
-    autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
-    autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
-augroup END
+set number
+" augroup numbertoggle
+"     autocmd!
+"     autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
+"     autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber number
+" augroup END
 
 " Set off the other paren
 highlight MatchParen ctermbg=4
@@ -230,6 +244,8 @@ nnoremap <leader>da  :LspCodeAction<cr>
 nnoremap <leader>dh  :LspHover<cr>
 nnoremap <leader>df  :LspDocumentFormat<cr>
 
+let g:lsp_semantic_enabled = 1
+
 if filereadable(expand("~/.vimrc.extra"))
     source ~/.vimrc.extra
 endif
@@ -240,7 +256,9 @@ let g:cpp_member_variable_highlight = 1
 let g:cpp_class_decl_highlight = 1
 
 " context.vim
-let g:context_enabled = 0
+" highlight MyColor ctermbg=lightblue
+" let g:context_highlight_normal='MyColor'
+let g:context_skip_regex = '^\s*\($\|#\|//\|/\*\|\*\($\|/s\|\/\)\)'
 
 " vim-signify update time
 set updatetime=100
@@ -263,7 +281,7 @@ if has('unix')
   endif
 endif
 
-let g:jedi#completions_command = "<C-N>"
+" let g:jedi#completions_command = "<C-N>"
 let g:jedi#show_call_signatures = "1"
 
 " Disable asynccomplete autopopup, Tab to complete
@@ -288,17 +306,30 @@ autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 
 " clang-format
 let g:clang_format#detect_style_file = 1
-let g:clang_format#auto_format = 1
-autocmd FileType cpp ClangFormatAutoEnable
+" let g:clang_format#auto_format = 1
+" autocmd FileType cpp ClangFormatAutoEnable
 
 let g:validator_python_checkers = ['flake8']
 " let g:validator_cpp_checkers = ['clang-tidy']
-let g:validator_auto_open_quickfix = 1
+let g:validator_ignore = ['cpp', 'none']
+" let g:validator_auto_open_quickfix = 1
 let g:validator_permament_sign = 1
-let g:validator_python_flake8_args = '--max-line-length=120 --extend-ignore=F403,F405,E203'
+let g:validator_python_flake8_args = '--max-line-length=120 --extend-ignore=F403,F405,E203,F401,E128'
+
+" CSV config
+let g:csv_start = 1
+let g:csv_end = 20
+let g:csv_strict_columns = 1
+
+" Black
+let g:black_linelength = 120
 
 " set runtimepath-=~/.vim/bundle/vim-lsp
 " set runtimepath-=~/.vim/bundle/vim-lsp-settings
 " set runtimepath-=~/.vim/bundle/asynccomplete
 " set runtimepath-=~/.vim/bundle/asynccomplete-vim
-" set runtimepath-=~/.vim/bundle/csv
+set runtimepath-=~/.vim/bundle/context.vim
+set runtimepath-=~/.vim/bundle/csv
+set runtimepath-=~/.vim/bundle/vim-signify
+set runtimepath-=~/.vim/bundle/vim-buftabline
+set runtimepath-=~/.vim/bundle/jed-vim
