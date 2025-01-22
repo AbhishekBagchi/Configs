@@ -26,6 +26,7 @@
     autostash = true
 [mergetool]
 	prompt = false
+	keepBackup = false
 [user]
 	name = Abhishek Bagchi
 	email = abhishekbagchi@icloud.com

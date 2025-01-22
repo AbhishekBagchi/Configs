@@ -27,4 +27,5 @@ alias tm:new="tmux new-session -s"
 alias tm:kill="tmux kill-session -t"
 
 alias imgcat="wezterm imgcat"
+alias notes="notes --color-always"
 # vim: set filetype=zsh :
