@@ -79,3 +79,12 @@
 [submodule "home/.vim/bundle/vim-surround"]
 	path = home/.vim/bundle/vim-surround
 	url = https://github.com/tpope/vim-surround
+[submodule "home/.vim/bundle/vim-colors-solarized"]
+	path = home/.vim/bundle/vim-colors-solarized
+	url = https://github.com/altercation/vim-colors-solarized.git
+[submodule "home/.vim/bundle/vim-indentwise"]
+	path = home/.vim/bundle/vim-indentwise
+	url = https://github.com/jeetsukumaran/vim-indentwise.git
+[submodule "home/.vim/bundle/vim-notes-cli"]
+	path = home/.vim/bundle/vim-notes-cli
+	url = https://github.com/rhysd/vim-notes-cli.git
