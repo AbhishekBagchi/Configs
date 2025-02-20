@@ -1,90 +1,122 @@
 [submodule "home/.vim/bundle/fugitive"]
 	path = home/.vim/bundle/fugitive
 	url = http://github.com/tpope/vim-fugitive.git
+	branch = master
 [submodule "home/.vim/bundle/tagbar"]
 	path = home/.vim/bundle/tagbar
 	url = https://github.com/majutsushi/tagbar
+	branch = master
 [submodule "home/.vim/bundle/vim-cpp-enhanced-highlight"]
 	path = home/.vim/bundle/vim-cpp-enhanced-highlight
 	url = https://github.com/octol/vim-cpp-enhanced-highlight
+	branch = master
 [submodule "home/.vim/bundle/vim-lsp"]
 	path = home/.vim/bundle/vim-lsp
 	url = https://github.com/prabirshrestha/vim-lsp
 [submodule "home/.vim/bundle/asyncomplete.vim"]
 	path = home/.vim/bundle/asyncomplete.vim
 	url = https://github.com/prabirshrestha/asyncomplete.vim
+	branch = master
 [submodule "home/.vim/bundle/asyncomplete-lsp.vim"]
 	path = home/.vim/bundle/asyncomplete-lsp.vim
 	url = https://github.com/prabirshrestha/asyncomplete-lsp.vim
+	branch = master
 [submodule "home/.vim/bundle/vim-lsp-settings"]
 	path = home/.vim/bundle/vim-lsp-settings
 	url = https://github.com/mattn/vim-lsp-settings
+	branch = master
 [submodule "home/.vim/bundle/ack.vim"]
 	path = home/.vim/bundle/ack.vim
 	url = https://github.com/mileszs/ack.vim.git
+	branch = master
 [submodule "home/.vim/bundle/vim-pathogen"]
 	path = home/.vim/bundle/vim-pathogen
 	url = https://github.com/tpope/vim-pathogen.git
+	branch = master
 [submodule "home/.config/alacritty/themes"]
 	path = home/.config/alacritty/themes
 	url = https://github.com/alacritty/alacritty-theme
 [submodule "home/.vim/bundle/vim-fugitive"]
 	path = home/.vim/bundle/vim-fugitive
 	url = https://github.com/tpope/vim-fugitive.git
+	branch = master
 [submodule "home/.vim/bundle/csv"]
 	path = home/.vim/bundle/csv
 	url = https://github.com/chrisbra/csv.vim
+	branch = master
 [submodule "home/.vim/bundle/vim-obsession"]
 	path = home/.vim/bundle/vim-obsession
 	url = git@github.com:tpope/vim-obsession.git
+	branch = master
 [submodule "home/.vim/bundle/vim-signify"]
 	path = home/.vim/bundle/vim-signify
 	url = git@github.com:mhinz/vim-signify.git
+	branch = master
 [submodule "home/.vim/bundle/AnsiEsc"]
 	path = home/.vim/bundle/AnsiEsc
 	url = git@github.com:powerman/vim-plugin-AnsiEsc.git
+	branch = master
 [submodule "home/.vim/bundle/vim-clang-format"]
 	path = home/.vim/bundle/vim-clang-format
 	url = git@github.com:rhysd/vim-clang-format.git
+	branch = master
 [submodule "home/.vim/bundle/vim-commentary"]
 	path = home/.vim/bundle/vim-commentary
 	url = git@github.com:tpope/vim-commentary.git
+	branch = master
 [submodule "home/.vim/bundle/vim-tmux-navigator.git"]
 	path = home/.vim/bundle/vim-tmux-navigator
 	url = git@github.com:christoomey/vim-tmux-navigator.git
+	branch = master
 [submodule "home/.vim/bundle/gruvbox"]
 	path = home/.vim/bundle/gruvbox
 	url = https://github.com/morhetz/gruvbox.git
+	branch = master
 [submodule "home/.vim/bundle/fzf.vim.git"]
 	path = home/.vim/bundle/fzf.vim
 	url = https://github.com/junegunn/fzf.vim.git
+	branch = master
 [submodule "home/.vim/bundle/vim-indent-guides"]
 	path = home/.vim/bundle/vim-indent-guides
 	url = https://github.com/preservim/vim-indent-guides.git
+	branch = master
 [submodule "home/.vim/bundle/vim-buftabline"]
 	path = home/.vim/bundle/vim-buftabline
 	url = https://github.com/ap/vim-buftabline.git
+	branch = master
 [submodule "home/.vim/bundle/context.vim"]
 	path = home/.vim/bundle/context.vim
 	url = https://github.com/wellle/context.vim.git
+	branch = master
 [submodule "home/.vim/bundle/jedi-vim"]
 	path = home/.vim/bundle/jedi-vim
 	url = https://github.com/davidhalter/jedi-vim.git
+	branch = master
 [submodule "home/.vim/bundle/validator.vim"]
 	path = home/.vim/bundle/validator.vim
 	url = https://github.com/maralla/validator.vim.git
+	branch = master
 [submodule "home/.vim/bundle/black"]
 	path = home/.vim/bundle/black
 	url = https://github.com/psf/black.git
+	branch = main
 [submodule "home/.vim/bundle/vim-surround"]
 	path = home/.vim/bundle/vim-surround
 	url = https://github.com/tpope/vim-surround
+	branch = master
 [submodule "home/.vim/bundle/vim-colors-solarized"]
 	path = home/.vim/bundle/vim-colors-solarized
 	url = https://github.com/altercation/vim-colors-solarized.git
+	branch = master
 [submodule "home/.vim/bundle/vim-indentwise"]
 	path = home/.vim/bundle/vim-indentwise
 	url = https://github.com/jeetsukumaran/vim-indentwise.git
+	branch = master
 [submodule "home/.vim/bundle/vim-notes-cli"]
 	path = home/.vim/bundle/vim-notes-cli
 	url = https://github.com/rhysd/vim-notes-cli.git
+	branch = master
+[submodule "home/.vim/bundle/lsp"]
+	path = home/.vim/bundle/lsp
+	url = https://github.com/yegappan/lsp.git
+	branch = main

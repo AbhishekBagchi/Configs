@@ -230,21 +230,21 @@ if executable('ag')
     let g:ackprg = 'ag --vimgrep'
 endif
 
-" vim lsp
-" leader is \
-nnoremap <leader>dd  :LspDefinition<cr>
-nnoremap <leader>dn  :LspNextDiagnostic<cr>
-nnoremap <leader>dp  :LspPreviousDiagnostic<cr>
-nnoremap <leader>dr  :LspRename<cr>
-nnoremap <leader>ds  :LspStopServer<cr>
-nnoremap <leader>dp  :LspPeekDefinition<cr>
-nnoremap <leader>dci :LspCallHierarchyIncoming<cr>
-nnoremap <leader>dco :LspCallHierarchyOutgoing<cr>
-nnoremap <leader>da  :LspCodeAction<cr>
-nnoremap <leader>dh  :LspHover<cr>
-nnoremap <leader>df  :LspDocumentFormat<cr>
+" " vim lsp
+" " leader is \
+" nnoremap <leader>dd  :LspDefinition<cr>
+" nnoremap <leader>dn  :LspNextDiagnostic<cr>
+" nnoremap <leader>dp  :LspPreviousDiagnostic<cr>
+" nnoremap <leader>dr  :LspRename<cr>
+" nnoremap <leader>ds  :LspStopServer<cr>
+" nnoremap <leader>dp  :LspPeekDefinition<cr>
+" nnoremap <leader>dci :LspCallHierarchyIncoming<cr>
+" nnoremap <leader>dco :LspCallHierarchyOutgoing<cr>
+" nnoremap <leader>da  :LspCodeAction<cr>
+" nnoremap <leader>dh  :LspHover<cr>
+" nnoremap <leader>df  :LspDocumentFormat<cr>
 
-let g:lsp_semantic_enabled = 1
+" let g:lsp_semantic_enabled = 1
 
 if filereadable(expand("~/.vimrc.extra"))
     source ~/.vimrc.extra
@@ -324,8 +324,23 @@ let g:csv_strict_columns = 1
 " Black
 let g:black_linelength = 120
 
-" set runtimepath-=~/.vim/bundle/vim-lsp
-" set runtimepath-=~/.vim/bundle/vim-lsp-settings
+" yegappan/lsp Keybindings
+nnoremap <leader>dd  :LspGotoDefinition<cr>
+nnoremap <leader>dn  :LspDiag nextWrap<cr>
+nnoremap <leader>dp  :LspDiag prevWrap<cr>
+nnoremap <leader>dr  :LspRename<cr>
+nnoremap <leader>dp  :LspPeekDefinition<cr>
+nnoremap <leader>dci :LspIncomingCalls<cr>
+nnoremap <leader>dco :LspOutgoingCalls<cr>
+nnoremap <leader>da  :LspCodeAction<cr>
+nnoremap <leader>dl  :LspCodeLens<cr>
+nnoremap <leader>dh  :LspHover<cr>
+nnoremap <leader>df  :LspFormat<cr>
+nnoremap <leader>do  :LspFold<cr>
+" nnoremap <leader>ds  :LspStopServer<cr>
+
+set runtimepath-=~/.vim/bundle/vim-lsp
+set runtimepath-=~/.vim/bundle/vim-lsp-settings
 " set runtimepath-=~/.vim/bundle/asynccomplete
 " set runtimepath-=~/.vim/bundle/asynccomplete-vim
 set runtimepath-=~/.vim/bundle/context.vim
