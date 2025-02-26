@@ -120,3 +120,11 @@
 	path = home/.vim/bundle/lsp
 	url = https://github.com/yegappan/lsp.git
 	branch = main
+[submodule "home/.vim/bundle/vim-table-mode"]
+	path = home/.vim/bundle/vim-table-mode
+	url = git@github.com:dhruvasagar/vim-table-mode.git
+	branch = master
+[submodule "home/.vim/bundle/isort.vim"]
+	path = home/.vim/bundle/isort.vim
+	url = git@github.com:brentyi/isort.vim.git
+	branch = master

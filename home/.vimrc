@@ -304,6 +304,9 @@ let g:asyncomplete_auto_completeopt = 0
 set completeopt=menuone,noinsert,noselect,preview
 autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 
+inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <cr>    pumvisible() ? asyncomplete#close_popup() : "\<cr>"
+
 " clang-format
 let g:clang_format#detect_style_file = 1
 " let g:clang_format#auto_format = 1
@@ -324,6 +327,28 @@ let g:csv_strict_columns = 1
 " Black
 let g:black_linelength = 120
 
+" Isort
+let g:isort_vim_options = '--profile black'
+
+" fzf AgIn
+" AgIn: Start ag in the specified directory
+"
+" e.g.
+"   :AgIn .. foo
+function! s:ag_in(bang, ...)
+  if !isdirectory(a:1)
+    throw 'not a valid directory: ' .. a:1
+  endif
+  " Press `?' to enable preview window.
+  call fzf#vim#ag(join(a:000[1:], ' '), fzf#vim#with_preview({'dir': a:1}, 'up:50%:hidden', '?'), a:bang)
+
+  " If you don't want preview option, use this
+  " call fzf#vim#ag(join(a:000[1:], ' '), {'dir': a:1}, a:bang)
+endfunction
+
+command! -bang -nargs=+ -complete=dir AgIn call s:ag_in(<bang>0, <f-args>)
+
+let g:vimcomplete_tab_enable = 1
 " yegappan/lsp Keybindings
 nnoremap <leader>dd  :LspGotoDefinition<cr>
 nnoremap <leader>dn  :LspDiag nextWrap<cr>
@@ -337,6 +362,7 @@ nnoremap <leader>dl  :LspCodeLens<cr>
 nnoremap <leader>dh  :LspHover<cr>
 nnoremap <leader>df  :LspFormat<cr>
 nnoremap <leader>do  :LspFold<cr>
+nnoremap <leader>ds  :LspDiagShow<cr>
 " nnoremap <leader>ds  :LspStopServer<cr>
 
 set runtimepath-=~/.vim/bundle/vim-lsp
@@ -344,7 +370,7 @@ set runtimepath-=~/.vim/bundle/vim-lsp-settings
 " set runtimepath-=~/.vim/bundle/asynccomplete
 " set runtimepath-=~/.vim/bundle/asynccomplete-vim
 set runtimepath-=~/.vim/bundle/context.vim
-set runtimepath-=~/.vim/bundle/csv
+" set runtimepath-=~/.vim/bundle/csv
 set runtimepath-=~/.vim/bundle/vim-signify
 set runtimepath-=~/.vim/bundle/vim-buftabline
 set runtimepath-=~/.vim/bundle/jed-vim
