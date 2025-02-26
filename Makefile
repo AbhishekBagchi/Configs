@@ -18,4 +18,4 @@ dotfiles:
 
 diff:
 	$(foreach X,$(DOTFILES_NO_DIR), \
-		echo ${X}; diff -ur home/${X} ~/${X};)
+		echo Diffing ${X}; diff -ur home/${X} ~/${X};)
