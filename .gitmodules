@@ -46,27 +46,27 @@
 	branch = master
 [submodule "home/.vim/bundle/vim-obsession"]
 	path = home/.vim/bundle/vim-obsession
-	url = git@github.com:tpope/vim-obsession.git
+	url = https://github.com/tpope/vim-obsession.git
 	branch = master
 [submodule "home/.vim/bundle/vim-signify"]
 	path = home/.vim/bundle/vim-signify
-	url = git@github.com:mhinz/vim-signify.git
+	url = https://github.com/mhinz/vim-signify.git
 	branch = master
 [submodule "home/.vim/bundle/AnsiEsc"]
 	path = home/.vim/bundle/AnsiEsc
-	url = git@github.com:powerman/vim-plugin-AnsiEsc.git
+	url = https://github.com/powerman/vim-plugin-AnsiEsc.git
 	branch = master
 [submodule "home/.vim/bundle/vim-clang-format"]
 	path = home/.vim/bundle/vim-clang-format
-	url = git@github.com:rhysd/vim-clang-format.git
+	url = https://github.com/rhysd/vim-clang-format.git
 	branch = master
 [submodule "home/.vim/bundle/vim-commentary"]
 	path = home/.vim/bundle/vim-commentary
-	url = git@github.com:tpope/vim-commentary.git
+	url = https://github.com/tpope/vim-commentary.git
 	branch = master
 [submodule "home/.vim/bundle/vim-tmux-navigator.git"]
 	path = home/.vim/bundle/vim-tmux-navigator
-	url = git@github.com:christoomey/vim-tmux-navigator.git
+	url = https://github.com/christoomey/vim-tmux-navigator.git
 	branch = master
 [submodule "home/.vim/bundle/gruvbox"]
 	path = home/.vim/bundle/gruvbox
@@ -122,9 +122,9 @@
 	branch = main
 [submodule "home/.vim/bundle/vim-table-mode"]
 	path = home/.vim/bundle/vim-table-mode
-	url = git@github.com:dhruvasagar/vim-table-mode.git
+	url = https://github.com/dhruvasagar/vim-table-mode.git
 	branch = master
 [submodule "home/.vim/bundle/isort.vim"]
 	path = home/.vim/bundle/isort.vim
-	url = git@github.com:brentyi/isort.vim.git
+	url = https://github.com/brentyi/isort.vim.git
 	branch = master
