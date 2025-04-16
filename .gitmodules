@@ -128,3 +128,6 @@
 	path = home/.vim/bundle/isort.vim
 	url = https://github.com/brentyi/isort.vim.git
 	branch = master
+[submodule "home/.tmux/plugins/tpm"]
+	path = home/.tmux/plugins/tpm
+	url = git@github.com:tmux-plugins/tpm
