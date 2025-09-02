@@ -127,3 +127,6 @@
 [submodule "home/.vim/bundle/vim-visincr"]
 	path = home/.vim/bundle/vim-visincr
 	url = git@github.com:jikkujose/vim-visincr.git
+[submodule "home/.vim/bundle/vim-venter"]
+	path = home/.vim/bundle/vim-venter
+	url = git@github.com:JMcKiern/vim-venter.git
