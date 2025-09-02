@@ -18,7 +18,7 @@ print_events = false
 render_timer = false
 
 [font]
-size = 13
+size = 18
 
 [font.bold]
 family = "Inconsolata"
@@ -626,6 +626,15 @@ chars = """
 """
 key = "NumpadEnter"
 
+[[keyboard.bindings]]
+action = "None"
+key = "Q"
+mods = "Command"
+
+[[keyboard.bindings]]
+action = "None"
+key = "W"
+mods = "Command"
 [mouse]
 hide_when_typing = false
 
@@ -647,6 +656,7 @@ decorations_theme_variant = "Dark"
 dynamic_padding = true
 startup_mode = "Maximized"
 option_as_alt = "Both"
+dynamic_title = true
 
 [window.dimensions]
 columns = 0
@@ -659,4 +669,4 @@ y = 5
 [general]
 live_config_reload = true
 working_directory = "None"
-import = ["~/.config/alacritty/themes/themes/nord.toml"]
+import = ["~/.config/alacritty/themes/themes/sonokai.toml"]
