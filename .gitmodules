@@ -133,3 +133,9 @@
 [submodule "home/.vim/bundle/vim-zoom"]
 	path = home/.vim/bundle/vim-zoom
 	url = git@github.com:dhruvasagar/vim-zoom.git
+[submodule "home/.vim/bundle/vim-diminactive"]
+	path = home/.vim/bundle/vim-diminactive
+	url = git@github.com:blueyed/vim-diminactive.git
+[submodule "home/.vim/bundle/vim-tmux-focus-events"]
+	path = home/.vim/bundle/vim-tmux-focus-events
+	url = git@github.com:blueyed/vim-diminactive.git
