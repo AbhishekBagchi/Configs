@@ -11,7 +11,7 @@ var servers = [
         filetype: "python",
         path: "/opt/homebrew/bin/pylsp",
         args: []
-    }
+    },
 ]
 
 call LspAddServer(servers)

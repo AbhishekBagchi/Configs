@@ -20,7 +20,7 @@ let g:gruvbox_italic=1
 colorscheme gruvbox
 
 if &diff
-    colorscheme koehler
+    colorscheme unokai
 endif
 
 " After colorscheme so that this color doesn't get overriden
@@ -127,6 +127,8 @@ set number
 " Set off the other paren
 highlight MatchParen ctermbg=4
 
+autocmd BufNewFile,BufRead *.v,*.vs,*.ivg set syntax=verilog
+
 function! StatuslineMode()
   let l:mode=mode()
   let l:m=""
@@ -166,6 +168,7 @@ set statusline+=%h%m%r%w\                    " flags, help, modified, readonly
 set statusline+=[%{strlen(&ft)?&ft:'none'},  " filetype
 set statusline+=%{&fileformat}]              " file format
 set statusline+=%=                           " right align
+set statusline+=%{zoom#statusline()}         " zoom status
 set statusline+=%{FugitiveStatusline()}      " fugitive
 set statusline+=%{ObsessionStatus()}         " fugitive
 " set statusline+=%{synidattr(synid(line('.'),col('.'),1),'name')}\  " highlight
@@ -201,7 +204,12 @@ set pastetoggle=<F8>
 let &t_SI = "\e[6 q"
 let &t_EI = "\e[2 q"
 
-nmap <F7> :TagbarToggle<CR>
+" Automatically read file if changed externally
+set autoread
+
+
+" Plugin configs
+" nmap <F7> :TagbarToggle<CR>
 
 " optional reset cursor on start:
 augroup myCmds
@@ -229,22 +237,6 @@ let g:cpp_member_variable_highlight = 1
 if executable('ag')
     let g:ackprg = 'ag --vimgrep'
 endif
-
-" " vim lsp
-" " leader is \
-" nnoremap <leader>dd  :LspDefinition<cr>
-" nnoremap <leader>dn  :LspNextDiagnostic<cr>
-" nnoremap <leader>dp  :LspPreviousDiagnostic<cr>
-" nnoremap <leader>dr  :LspRename<cr>
-" nnoremap <leader>ds  :LspStopServer<cr>
-" nnoremap <leader>dp  :LspPeekDefinition<cr>
-" nnoremap <leader>dci :LspCallHierarchyIncoming<cr>
-" nnoremap <leader>dco :LspCallHierarchyOutgoing<cr>
-" nnoremap <leader>da  :LspCodeAction<cr>
-" nnoremap <leader>dh  :LspHover<cr>
-" nnoremap <leader>df  :LspDocumentFormat<cr>
-
-" let g:lsp_semantic_enabled = 1
 
 if filereadable(expand("~/.vimrc.extra"))
     source ~/.vimrc.extra
@@ -315,7 +307,7 @@ let g:clang_format#detect_style_file = 1
 let g:validator_python_checkers = ['flake8']
 " let g:validator_cpp_checkers = ['clang-tidy']
 let g:validator_ignore = ['cpp', 'none']
-" let g:validator_auto_open_quickfix = 1
+let g:validator_auto_open_quickfix = 1
 let g:validator_permament_sign = 1
 let g:validator_python_flake8_args = '--max-line-length=120 --extend-ignore=F403,F405,E203,F401,E128'
 
@@ -354,7 +346,8 @@ nnoremap <leader>dd  :LspGotoDefinition<cr>
 nnoremap <leader>dn  :LspDiag nextWrap<cr>
 nnoremap <leader>dp  :LspDiag prevWrap<cr>
 nnoremap <leader>dr  :LspRename<cr>
-nnoremap <leader>dp  :LspPeekDefinition<cr>
+nnoremap <leader>dpd :LspPeekDefinition<cr>
+nnoremap <leader>dpr :LspPeekReferences<cr>
 nnoremap <leader>dci :LspIncomingCalls<cr>
 nnoremap <leader>dco :LspOutgoingCalls<cr>
 nnoremap <leader>da  :LspCodeAction<cr>
@@ -365,12 +358,15 @@ nnoremap <leader>do  :LspFold<cr>
 nnoremap <leader>ds  :LspDiagShow<cr>
 " nnoremap <leader>ds  :LspStopServer<cr>
 
+let g:diminactive_enable_focus = 1
+let g:diminactive_use_syntax = 0
+
 set runtimepath-=~/.vim/bundle/vim-lsp
 set runtimepath-=~/.vim/bundle/vim-lsp-settings
 " set runtimepath-=~/.vim/bundle/asynccomplete
 " set runtimepath-=~/.vim/bundle/asynccomplete-vim
 set runtimepath-=~/.vim/bundle/context.vim
-" set runtimepath-=~/.vim/bundle/csv
-set runtimepath-=~/.vim/bundle/vim-signify
+set runtimepath-=~/.vim/bundle/csv
+" set runtimepath-=~/.vim/bundle/vim-signify
 set runtimepath-=~/.vim/bundle/vim-buftabline
 set runtimepath-=~/.vim/bundle/jed-vim

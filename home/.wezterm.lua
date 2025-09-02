@@ -45,8 +45,9 @@ config.window_padding = {
     bottom = 0,
 }
 
-config.font = wezterm.font 'Inconsolata'
-config.font_size = 17
+config.font =
+  wezterm.font('Inconsolata', { weight = 'Regular', italic = false })
+config.font_size = 18
 
 config.window_decorations = "TITLE | RESIZE"
 

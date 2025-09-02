@@ -183,6 +183,10 @@ function prepend_date {
     echo `date +'%F'`_${name}
 }
 
+function append_date_mmddyy {
+    name=${1}
+    echo ${name}_`date +'%m%d%Y'`
+}
 function append_date {
     name=${1}
     echo ${name}_`date +'%F'`
@@ -336,3 +340,4 @@ export PYTHONSTARTUP="$(python3 -m jedi repl)"
 DISABLE_AUTO_TITLE="true" # Disable auto-setting terminal title.
 COMPLETION_WAITING_DOTS="true" # Display red dots whilst waiting for completion.
 setopt HIST_IGNORE_ALL_DUPS
+fpath+=~/.zfunc; autoload -Uz compinit; compinit

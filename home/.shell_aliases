@@ -1,9 +1,9 @@
 alias ls='ls --color=auto'
-alias ll='ls -alh'
+alias ll='ls -talh'
 if  [[ "$OSTYPE" == "darwin"* ]]; then
-    alias gopen='open'
+    alias open='open'
 else
-    alias gopen='xdg-open'
+    alias open='xdg-open'
 fi
 
 alias grep='grep --color=auto'
@@ -17,6 +17,7 @@ alias tmux='tmux -2'
 #Sed to remove trailing whitespaces
 alias whitespace_sed="sed -i 's/[[:space:]]*$//'"
 alias find_ws='find . -type f -exec egrep -l " +$" {} \;'
+
 alias zshrc_source="source ~/.zshrc"
 alias run_ctags='ctags -F --recurse -h +tcc --c++-kinds=+p --fields=+iaS --extras=+q'
 
@@ -26,6 +27,9 @@ alias tm:ls="tmux list-sessions"
 alias tm:new="tmux new-session -s"
 alias tm:kill="tmux kill-session -t"
 
-alias imgcat="wezterm imgcat"
+# alias imgcat="wezterm imgcat"
 alias notes="notes --color-always"
+
+alias cd_git_root='cd $(git rev-parse --show-toplevel)'
+
 # vim: set filetype=zsh :
