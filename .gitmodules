@@ -130,3 +130,6 @@
 [submodule "home/.vim/bundle/vim-venter"]
 	path = home/.vim/bundle/vim-venter
 	url = git@github.com:JMcKiern/vim-venter.git
+[submodule "home/.vim/bundle/vim-zoom"]
+	path = home/.vim/bundle/vim-zoom
+	url = git@github.com:dhruvasagar/vim-zoom.git
