@@ -17,5 +17,9 @@ dotfiles:
 	cp $(CP_FLAGS) $(DOTFILES) $(HOME)/;
 
 diff:
-	$(foreach X,$(DOTFILES_NO_DIR), \
-		echo Diffing ${X}; diff -ur home/${X} ~/${X};)
+	@$(foreach X,$(DOTFILES_NO_DIR), \
+		OUTPUT=$$(diff -ur --exclude='.git' home/${X} ~/${X} 2>&1); \
+		if [ -n "$$OUTPUT" ]; then \
+			echo "Diffing ${X}"; \
+			echo "$$OUTPUT"; \
+		fi;)

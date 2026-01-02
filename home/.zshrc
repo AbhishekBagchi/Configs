@@ -311,6 +311,7 @@ export FZF_DEFAULT_OPTS="--height 40% --tmux bottom,40% --layout reverse --borde
 --color=bg+:#414559,bg:#303446,spinner:#f2d5cf,hl:#e78284 \
 --color=fg:#c6d0f5,header:#e78284,info:#ca9ee6,pointer:#f2d5cf \
 --color=marker:#f2d5cf,fg+:#c6d0f5,prompt:#ca9ee6,hl+:#e78284"
+
 # Use fd (https://github.com/sharkdp/fd) for listing path candidates.
 # - The first argument to the function ($1) is the base path to start traversal
 # - See the source code (completion.{bash,zsh}) for the details.
@@ -334,10 +335,13 @@ fi
 export PATH=/opt/homebrew/bin:$PATH
 path_prepend /opt/homebrew/opt/ccache/libexec
 path_prepend "$(brew --prefix python)"/libexec/bin
+path_append ~/.cargo/bin
 
 export PYTHONSTARTUP="$(python3 -m jedi repl)"
 
 DISABLE_AUTO_TITLE="true" # Disable auto-setting terminal title.
 COMPLETION_WAITING_DOTS="true" # Display red dots whilst waiting for completion.
 setopt HIST_IGNORE_ALL_DUPS
-fpath+=~/.zfunc; autoload -Uz compinit; compinit
+fpath+=~/.zfunc;
+autoload -Uz compinit;
+compinit

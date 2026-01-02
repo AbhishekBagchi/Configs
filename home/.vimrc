@@ -114,7 +114,7 @@ set hlsearch
 let g:clipbrdDefaultReg = '+'
 
 " Remove buffer on closing tab
-set nohidden
+" set nohidden
 
 " Show line numbers
 set number
@@ -162,7 +162,7 @@ set statusline=   " clear the statusline for when vimrc is reloaded
 set statusline+=%-3.3{winnr()}               " window number
 set statusline+=%-3.3n\                      " buffer number
 set statusline+=%6{StatuslineMode()}\        " mode
-set statusline+=%F\                          " file name
+set statusline+=%f\                          " file name
 set statusline+=%l/%c/%L/%P\                 " cursor line/total lines
 set statusline+=%h%m%r%w\                    " flags, help, modified, readonly
 set statusline+=[%{strlen(&ft)?&ft:'none'},  " filetype
@@ -175,11 +175,6 @@ set statusline+=%{ObsessionStatus()}         " fugitive
 
 " The status line now has the mode, so another mode isn't needed
 set noshowmode
-
-" CtrlP invocation
-let g:ctrlp_map = '<c-p>'
-let g:ctrlp_cmd = 'CtrlP'
-let g:ctrlp_working_path_mode = 'ra'
 
 " Unset highlighting after search
 nnoremap <CR> :noh<CR><CR>
@@ -238,6 +233,18 @@ if executable('ag')
     let g:ackprg = 'ag --vimgrep'
 endif
 
+" Search for selected text, forwards or backwards.
+vnoremap <silent> * :<C-U>
+  \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
+  \gvy/<C-R>=&ic?'\c':'\C'<CR><C-R><C-R>=substitute(
+  \escape(@", '/\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
+  \gVzv:call setreg('"', old_reg, old_regtype)<CR>
+vnoremap <silent> # :<C-U>
+  \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
+  \gvy?<C-R>=&ic?'\c':'\C'<CR><C-R><C-R>=substitute(
+  \escape(@", '?\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
+  \gVzv:call setreg('"', old_reg, old_regtype)<CR>
+
 if filereadable(expand("~/.vimrc.extra"))
     source ~/.vimrc.extra
 endif
@@ -277,7 +284,7 @@ endif
 let g:jedi#show_call_signatures = "1"
 
 " Disable asynccomplete autopopup, Tab to complete
-let g:asyncomplete_auto_popup = 0
+" let g:asyncomplete_auto_popup = 0
 function! s:check_back_space() abort
     let col = col('.') - 1
     return !col || getline('.')[col - 1]  =~ '\s'
@@ -304,12 +311,15 @@ let g:clang_format#detect_style_file = 1
 " let g:clang_format#auto_format = 1
 " autocmd FileType cpp ClangFormatAutoEnable
 
+" Rustfmt
+let g:rustfmt_autosave = 1
+
 let g:validator_python_checkers = ['flake8']
 " let g:validator_cpp_checkers = ['clang-tidy']
 let g:validator_ignore = ['cpp', 'none']
 let g:validator_auto_open_quickfix = 1
 let g:validator_permament_sign = 1
-let g:validator_python_flake8_args = '--max-line-length=120 --extend-ignore=F403,F405,E203,F401,E128'
+let g:validator_python_flake8_args = '--max-line-length=120 --extend-ignore=F403,F405,E203,F401,E128,E501'
 
 " CSV config
 let g:csv_start = 1
@@ -361,12 +371,41 @@ nnoremap <leader>ds  :LspDiagShow<cr>
 let g:diminactive_enable_focus = 1
 let g:diminactive_use_syntax = 0
 
-set runtimepath-=~/.vim/bundle/vim-lsp
-set runtimepath-=~/.vim/bundle/vim-lsp-settings
+let g:asyncrun_open = 10
+
+" Increase matchparen timeout
+let g:matchparen_timeout = 20
+let g:matchparen_insert_timeout = 20
+
+"Buftabline key-maps
+set hidden
+nnoremap <C-N> :bnext<CR>
+nnoremap <C-P> :bprev<CR>
+
+au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#file#get_source_options({
+    \ 'name': 'file',
+    \ 'allowlist': ['*'],
+    \ 'priority': 10,
+    \ 'completor': function('asyncomplete#sources#file#completor')
+    \ }))
+
+if has("persistent_undo")
+   let target_path = expand('~/.undodir')
+
+    " create the directory and any parent directories
+    " if the location does not exist.
+    if !isdirectory(target_path)
+        call mkdir(target_path, "p", 0700)
+    endif
+
+    let &undodir=target_path
+    set undofile
+endif
+
 " set runtimepath-=~/.vim/bundle/asynccomplete
 " set runtimepath-=~/.vim/bundle/asynccomplete-vim
-set runtimepath-=~/.vim/bundle/context.vim
+" set runtimepath-=~/.vim/bundle/context.vim
+" set runtimepath-=~/.vim/bundle/vim-buftabline
 set runtimepath-=~/.vim/bundle/csv
-" set runtimepath-=~/.vim/bundle/vim-signify
-set runtimepath-=~/.vim/bundle/vim-buftabline
 set runtimepath-=~/.vim/bundle/jed-vim
+set runtimepath-=~/.vim/bundle/vim-rooter

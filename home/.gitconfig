@@ -17,29 +17,32 @@
 [push]
     default = simple
 [merge]
-	conflictstyle = diff3
-	tool = vimdiff
+    conflictstyle = diff3
+    tool = vimdiff
 [rerere]
     enabled = true
 [pull]
     rebase = true
     autostash = true
 [mergetool]
-	prompt = false
-	keepBackup = false
+    prompt = false
+    keepBackup = false
 [user]
-	name = Abhishek Bagchi
-	email = abhishekbagchi@icloud.com
+    name = Abhishek Bagchi
+    email = abhishekbagchi@icloud.com
 [core]
-	excludesfile = ~/.gitignore
+    excludesfile = ~/.gitignore
 [include]
     path = ~/.gitconfig.extra
 [rebase]
     autostash = true
 [filter "lfs"]
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
-	process = git-lfs filter-process
-	required = true
+    clean = git-lfs clean -- %f
+    smudge = git-lfs smudge -- %f
+    process = git-lfs filter-process
+    required = true
 [init]
-	defaultBranch = main
+    defaultBranch = main
+[status]
+    showuntrackedfiles = no
+    short = yes
