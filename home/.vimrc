@@ -381,6 +381,7 @@ let g:matchparen_insert_timeout = 20
 set hidden
 nnoremap <C-N> :bnext<CR>
 nnoremap <C-P> :bprev<CR>
+let g:buftabline_numbers = 1
 
 au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#file#get_source_options({
     \ 'name': 'file',

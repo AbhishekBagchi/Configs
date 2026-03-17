@@ -16,9 +16,14 @@ antigen bundle taskwarrior
 antigen bundle zsh-users/zsh-completions
 antigen bundle zsh-users/zsh-autosuggestions
 antigen bundle command-not-found
-antigen bundle zsh-users/zsh-syntax-highlighting
+antigen bundle Aloxaf/fzf-tab
+antigen bundle romkatv/zsh-defer
 
+ANTIGEN_CACHE="$HOME/.antigen/.cache"
 antigen apply
+
+# Defer heavy syntax highlighting to load after prompt appears
+zsh-defer source ${HOME}/.antigen/bundles/zsh-users/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 export EDITOR='vim'
 
@@ -62,6 +67,8 @@ bindkey '^w' backward-kill-word
 
 # User specific aliases and functions
 setopt PROMPT_SUBST
+
+source ~/git-prompt.zsh/git-prompt.zsh
 function get_git_branch {
     git rev-parse --abbrev-ref HEAD
 }
@@ -69,7 +76,9 @@ function get_git_branch {
 function parse_git_branch_and_add_brackets {
   git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\ \[\1\]/'
 }
-PROMPT='[%F{red}%n@%m%f: %F{yellow}%~%f :%F{green}$(parse_git_branch_and_add_brackets) $(git_prompt_short_sha) %f]
+ZSH_GIT_PROMPT_SHOW_UPSTREAM='full'
+ZSH_GIT_PROMPT_SHOW_STASH=1
+PROMPT='[%F{red}%n@%m%f: %F{yellow}%~%f :%F{green}$(gitprompt)  %f]
 %# '
 
 bindkey "^R" history-incremental-pattern-search-backward
@@ -238,8 +247,9 @@ alias weekly_task='task end.after:today-1wk completed'
 if  [[ "$OSTYPE" == "darwin"* ]]; then
     arch=$(arch)
     if [[ "$arch" == "arm64" ]]; then
-        coreutils_path=$(brew info coreutils |& grep -A1 Installed | tail -n 1 | cut -f1 -d ' ')
-        if [ -d "$coreutils_path" ] && [[ ":$PATH:" != *"$coreutils_path"* ]] ; then
+        # Cached coreutils path - doesn't change often
+        coreutils_path="/opt/homebrew/opt/coreutils/libexec/gnubin"
+        if [ -d "$coreutils_path" ]; then
             path_prepend $coreutils_path
         fi
     fi
@@ -334,14 +344,26 @@ fi
 
 export PATH=/opt/homebrew/bin:$PATH
 path_prepend /opt/homebrew/opt/ccache/libexec
-path_prepend "$(brew --prefix python)"/libexec/bin
+# Cached python path
+path_prepend /opt/homebrew/opt/python/libexec/bin
 path_append ~/.cargo/bin
 
-export PYTHONSTARTUP="$(python3 -m jedi repl)"
+# tmux-sessioniser
+path_append ~/.local/scripts
+tmux-sessionizer-widget() {
+    BUFFER="~/.local/scripts/tmux-sessionizer"
+    zle accept-line
+}
+zle -N tmux-sessionizer-widget
+bindkey '^F' tmux-sessionizer-widget
+
+
+# Lazy-loaded Python REPL enhancements
+if [[ -f ~/.config/python/pythonstartup.py ]]; then
+    export PYTHONSTARTUP=~/.config/python/pythonstartup.py
+fi
 
 DISABLE_AUTO_TITLE="true" # Disable auto-setting terminal title.
 COMPLETION_WAITING_DOTS="true" # Display red dots whilst waiting for completion.
 setopt HIST_IGNORE_ALL_DUPS
 fpath+=~/.zfunc;
-autoload -Uz compinit;
-compinit
