@@ -74,11 +74,11 @@ setopt PROMPT_SUBST
 
 GIT_PROMPT_EXECUTABLE="haskell" 
 source ~/.zsh/git-prompt.zsh/git-prompt.zsh
-function get_git_branch {
+get_git_branch() {
     git rev-parse --abbrev-ref HEAD
 }
 
-function parse_git_branch_and_add_brackets {
+parse_git_branch_and_add_brackets() {
   git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\ \[\1\]/'
 }
 ZSH_GIT_PROMPT_SHOW_UPSTREAM='full'
@@ -106,11 +106,11 @@ if  [[ "$OSTYPE" == "darwin"* ]]; then
 fi
 
 # Random functions
-function countdown(){
+countdown() {
     while true; do echo -ne "`date +%H:%M:%S:%N`\r"; done
 }
 
-function install(){
+install() {
     if  [[ "$OSTYPE" == "darwin"* ]]; then
         brew install $1
     else
@@ -118,7 +118,7 @@ function install(){
     fi
 }
 
-function package-search(){
+package-search() {
     if  [[ "$OSTYPE" == "darwin"* ]]; then
         brew search $1
     else
@@ -142,20 +142,20 @@ _cpp_pair() {
 vicpp()    { _cpp_pair "$1"; vim    "${REPLY_FILES[@]}"; }
 vivsplit() { _cpp_pair "$1"; vim -O "${REPLY_FILES[@]}"; }
 
-function vimdiff_sorted {
+vimdiff_sorted() {
     vimdiff <(sort ${1}) <(sort ${2})
 }
 
-function diff_sorted {
+diff_sorted() {
     diff <(sort ${1}) <(sort ${2})
 }
 
 # Example -> sleep 120 &; wait_for_pid_and_run $(get_pid sleep) echo "Sleep done"
-function get_pid {
+get_pid() {
     pgrep -f "$1" | head -n1
 }
 
-function wait_for_pid_and_run {
+wait_for_pid_and_run() {
     pid=${1}
     shift
     cmd="$@"
@@ -180,13 +180,13 @@ append_date_mmddyy()    { _dated a "$1" '%m%d%Y'; }
 prepend_date_and_time() { _dated p "$1" '%F_%H_%M'; }
 append_date_and_time()  { _dated a "$1" '%F_%H_%M'; }
 
-function path_append() {
+path_append() {
     if [ -d "$1" ] && [[ ":$PATH:" != *":$1:"* ]]; then
         PATH="${PATH:+"$PATH:"}$1"
     fi
 }
 
-function path_prepend() {
+path_prepend() {
     # Always prepend
     PATH="$1${PATH:+":$PATH"}"
 }
@@ -270,11 +270,11 @@ zstyle ':completion:*' verbose true
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 
-if [[ -a ~/.shell_aliases ]] then
+if [[ -a ~/.shell_aliases ]]; then
     source ~/.shell_aliases
 fi
 
-if [[ -a ~/.zshrc.extra ]] then
+if [[ -a ~/.zshrc.extra ]]; then
     source ~/.zshrc.extra
 fi
 
