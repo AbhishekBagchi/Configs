@@ -7,6 +7,7 @@
     status = auto
 [diff]
     tool = vimdiff
+    algorithm = histogram
 [difftool]
     prompt = false
 [alias]
@@ -14,16 +15,16 @@
     edit-unmerged = "!f() { git diff --name-status --diff-filter=U | cut -f2 ; }; vim `f`"
     add-unmerged = "!f() { git diff --name-status --diff-filter=U | cut -f2 ; }; git add `f`"
     ll = log --all --branches --remotes --tags --graph --oneline --decorate --notes HEAD
-[push]
-    default = simple
 [merge]
-    conflictstyle = diff3
+    conflictstyle = zdiff3
     tool = vimdiff
 [rerere]
     enabled = true
 [pull]
     rebase = true
     autostash = true
+[fetch]
+    prune = true
 [mergetool]
     prompt = false
     keepBackup = false
