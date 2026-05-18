@@ -25,8 +25,8 @@ antigen apply
 export EDITOR='vim'
 
 HISTFILE=~/.histfile
-HISTSIZE=10000000
-SAVEHIST=10000000
+HISTSIZE=100000
+SAVEHIST=100000
 setopt sharehistory appendhistory extendedglob nomatch menucomplete
 unsetopt autocd
 
