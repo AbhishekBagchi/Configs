@@ -18,13 +18,9 @@ antigen bundle zsh-users/zsh-autosuggestions
 antigen bundle command-not-found
 antigen bundle Aloxaf/fzf-tab
 antigen bundle romkatv/zsh-defer
-antigen bundle zsh-users/zsh-syntax-highlighting
 
 ANTIGEN_CACHE="$HOME/.antigen/.cache"
 antigen apply
-
-# Defer heavy syntax highlighting to load after prompt appears
-zsh-defer source ${HOME}/.antigen/bundles/zsh-users/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 export EDITOR='vim'
 
@@ -40,7 +36,12 @@ zstyle :compinstall filename '~/.zshrc'
 fpath+=~/.zfunc
 
 autoload -Uz compinit
-compinit
+# Skip security audit if the compdump is < 24h old, and defer in either case
+if [[ -n ${ZDOTDIR:-$HOME}/.zcompdump(#qNmh-24) ]]; then
+    zsh-defer compinit -C
+else
+    zsh-defer compinit
+fi
 # End of lines added by compinstall
 
 # make less more friendly for non-text input files, see lesspipe(1)
@@ -72,7 +73,7 @@ bindkey '^w' backward-kill-word
 setopt PROMPT_SUBST
 
 GIT_PROMPT_EXECUTABLE="haskell" 
-source ~/git-prompt.zsh/git-prompt.zsh
+source ~/.zsh/git-prompt.zsh/git-prompt.zsh
 function get_git_branch {
     git rev-parse --abbrev-ref HEAD
 }
@@ -100,7 +101,6 @@ zstyle ':completion:*' file-sort modification
 # Setup the correct homebrew if macos
 # This is here because it's needed later in the file, so .shell_aliases would be too late
 if  [[ "$OSTYPE" == "darwin"* ]]; then
-    arch=$(arch)
     if [[ "$arch" == "arm64" ]]; then
         alias brew=/opt/homebrew/bin/brew
     else
@@ -249,7 +249,6 @@ get_font_size() {
 alias weekly_task='task end.after:today-1wk completed'
 
 if  [[ "$OSTYPE" == "darwin"* ]]; then
-    arch=$(arch)
     if [[ "$arch" == "arm64" ]]; then
         # Cached coreutils path - doesn't change often
         coreutils_path="/opt/homebrew/opt/coreutils/libexec/gnubin"
@@ -320,7 +319,6 @@ if [[ -a ~/.zshrc.extra ]] then
 fi
 
 #Setup fzf
-source <(fzf --zsh)
 export FZF_DEFAULT_OPTS="--height 40% --tmux bottom,40% --layout reverse --border top \
 --color=bg+:#414559,bg:#303446,spinner:#f2d5cf,hl:#e78284 \
 --color=fg:#c6d0f5,header:#e78284,info:#ca9ee6,pointer:#f2d5cf \
@@ -338,13 +336,8 @@ _fzf_compgen_dir() {
   fd --type d --hidden --follow --exclude ".git" . "$1"
 }
 
-# FZF
-if [[ "$OSTYPE" == "darwin"* ]]; then
-  # modified from from $(fzf-share)/key-bindings.bash
-  # see https://github.com/junegunn/fzf/issues/164#issuecomment-1324505215
-  # ALT-C - cd into the selected directory
-  bindkey "ç" fzf-cd-widget
-fi
+# Defer fzf integration; bind ALT-C only on macOS (see fzf issue #164)
+zsh-defer -c 'source <(fzf --zsh); [[ "$OSTYPE" == "darwin"* ]] && bindkey "ç" fzf-cd-widget'
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
     export PATH=/opt/homebrew/bin:$PATH
@@ -361,7 +354,7 @@ if [[ -f ~/.config/python/pythonstartup.py ]]; then
 fi
 
 eval "$(/opt/homebrew/bin/zsh-patina activate)"
-eval "$(zoxide init zsh)"
+zsh-defer -c 'eval "$(zoxide init zsh)"'
 
 DISABLE_AUTO_TITLE="true" # Disable auto-setting terminal title.
 COMPLETION_WAITING_DOTS="true" # Display red dots whilst waiting for completion.
