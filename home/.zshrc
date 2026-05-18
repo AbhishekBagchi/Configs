@@ -18,6 +18,7 @@ antigen bundle zsh-users/zsh-autosuggestions
 antigen bundle command-not-found
 antigen bundle Aloxaf/fzf-tab
 antigen bundle romkatv/zsh-defer
+antigen bundle zsh-users/zsh-syntax-highlighting
 
 ANTIGEN_CACHE="$HOME/.antigen/.cache"
 antigen apply
@@ -35,6 +36,8 @@ unsetopt autocd
 
 # The following lines were added by compinstall
 zstyle :compinstall filename '~/.zshrc'
+
+fpath+=~/.zfunc
 
 autoload -Uz compinit
 compinit
@@ -343,20 +346,13 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
   bindkey "ç" fzf-cd-widget
 fi
 
-export PATH=/opt/homebrew/bin:$PATH
-path_prepend /opt/homebrew/opt/ccache/libexec
-# Cached python path
-path_prepend /opt/homebrew/opt/python/libexec/bin
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    export PATH=/opt/homebrew/bin:$PATH
+    path_prepend /opt/homebrew/opt/ccache/libexec
+    # Cached python path
+    path_prepend /opt/homebrew/opt/python/libexec/bin
+fi
 path_append ~/.cargo/bin
-
-# tmux-sessioniser
-path_append ~/.local/scripts
-tmux-sessionizer-widget() {
-    BUFFER="~/.local/scripts/tmux-sessionizer"
-    zle accept-line
-}
-zle -N tmux-sessionizer-widget
-bindkey '^F' tmux-sessionizer-widget
 
 
 # Lazy-loaded Python REPL enhancements
@@ -370,4 +366,3 @@ eval "$(zoxide init zsh)"
 DISABLE_AUTO_TITLE="true" # Disable auto-setting terminal title.
 COMPLETION_WAITING_DOTS="true" # Display red dots whilst waiting for completion.
 setopt HIST_IGNORE_ALL_DUPS
-fpath+=~/.zfunc;

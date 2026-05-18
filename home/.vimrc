@@ -20,7 +20,7 @@ let g:gruvbox_italic=1
 colorscheme gruvbox
 
 if &diff
-    colorscheme unokai
+    colorscheme gruvbox
 endif
 
 " After colorscheme so that this color doesn't get overriden
@@ -35,7 +35,7 @@ au ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
 au BufRead,BufNewFile *.py,*.pyw,*.c,*.h,*.cpp,*.hpp,*.cc,*.hh match ExtraWhitespace /\s\+$/
 au BufEnter * match ExtraWhitespace /\s\+$/
 au InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
-au InsertLeave * match ExtraWhiteSpace /\s\+$/
+au InsertLeave * match ExtraWhitespace /\s\+$/
 
 
 "{{{ Misc Settings
@@ -408,5 +408,5 @@ endif
 " set runtimepath-=~/.vim/bundle/context.vim
 " set runtimepath-=~/.vim/bundle/vim-buftabline
 set runtimepath-=~/.vim/bundle/csv
-set runtimepath-=~/.vim/bundle/jed-vim
+set runtimepath-=~/.vim/bundle/jedi-vim
 set runtimepath-=~/.vim/bundle/vim-rooter
