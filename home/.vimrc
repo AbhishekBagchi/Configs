@@ -214,20 +214,6 @@ augroup myCmds
 augroup END
 
 
-autocmd User SignifyHunk call s:show_current_hunk()
-
-" Show hunk number usimg SignifyHunk
-" Triggered when jumping to hunk by ]c
-function! s:show_current_hunk() abort
-    let h = sy#util#get_hunk_stats()
-    if !empty(h)
-        echo printf('[Hunk %d/%d]', h.current_hunk, h.total_hunks)
-    endif
-endfunction
-
-let g:cpp_class_scope_highlight = 1
-let g:cpp_member_variable_highlight = 1
-
 " ag integration with vim, for Ack.vim
 if executable('ag')
     let g:ackprg = 'ag --vimgrep'
@@ -259,7 +245,7 @@ let g:cpp_class_decl_highlight = 1
 " let g:context_highlight_normal='MyColor'
 let g:context_skip_regex = '^\s*\($\|#\|//\|/\*\|\*\($\|/s\|\/\)\)'
 
-" vim-signify update time
+" Faster CursorHold autocmds (used by gitgutter, lsp signs, etc.)
 set updatetime=100
 
 " Python useful mappings
@@ -281,20 +267,13 @@ if has('unix')
 endif
 
 " let g:jedi#completions_command = "<C-N>"
-let g:jedi#show_call_signatures = "1"
 
-" Disable asynccomplete autopopup, Tab to complete
-" let g:asyncomplete_auto_popup = 0
-function! s:check_back_space() abort
-    let col = col('.') - 1
-    return !col || getline('.')[col - 1]  =~ '\s'
-endfunction
-
-inoremap <silent><expr> <TAB>
-  \ pumvisible() ? "\<C-n>" :
-  \ <SID>check_back_space() ? "\<TAB>" :
-  \ asyncomplete#force_refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+" Tab to navigate popup down, or insert literal Tab
+inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+" Shift-Tab to navigate popup up, or backspace
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<C-h>"
+" Enter to accept popup selection, or insert newline
+inoremap <expr> <cr>    pumvisible() ? asyncomplete#close_popup() : "\<cr>"
 
 " allow modifying the completeopt variable, or it will
 " be overridden all the time
@@ -302,9 +281,6 @@ let g:asyncomplete_auto_completeopt = 0
 
 set completeopt=menuone,noinsert,noselect,preview
 autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
-
-inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <cr>    pumvisible() ? asyncomplete#close_popup() : "\<cr>"
 
 " clang-format
 let g:clang_format#detect_style_file = 1
@@ -321,10 +297,33 @@ let g:validator_auto_open_quickfix = 1
 let g:validator_permament_sign = 1
 let g:validator_python_flake8_args = '--max-line-length=120 --extend-ignore=F403,F405,E203,F401,E128,E501'
 
-" CSV config
-let g:csv_start = 1
-let g:csv_end = 20
-let g:csv_strict_columns = 1
+" CSV: load on demand via :CsvOn (loading at startup is slow)
+function! s:LoadCsvPlugin() abort
+    " Run-once parts
+    if !exists('s:csv_loaded')
+        let s:csv_loaded = 1
+        " Prepend (^=) so the bundle's ftplugin overrides vim's built-in csv ftplugin
+        set runtimepath^=~/.vim/bundle/csv
+        runtime! plugin/csv.vim
+        runtime! ftdetect/csv.vim
+        let g:csv_start = 1
+        let g:csv_end = 20
+        let g:csv_strict_columns = 1
+    endif
+    " Detect filetype if empty (vim has no built-in csv detection)
+    if &filetype ==# ''
+        filetype detect
+    endif
+    if &filetype !=# 'csv'
+        echoerr 'CsvOn: buffer not detected as csv (filetype=' . &filetype . ')'
+        return
+    endif
+    " Force ftplugin/syntax for the current buffer (commands are buffer-local)
+    unlet! b:did_ftplugin
+    runtime! ftplugin/csv.vim
+    runtime! syntax/csv.vim
+endfunction
+command! CsvOn call <SID>LoadCsvPlugin()
 
 " Black
 let g:black_linelength = 120
@@ -409,4 +408,4 @@ endif
 " set runtimepath-=~/.vim/bundle/vim-buftabline
 set runtimepath-=~/.vim/bundle/csv
 set runtimepath-=~/.vim/bundle/jedi-vim
-set runtimepath-=~/.vim/bundle/vim-rooter
+set runtimepath-=~/.vim/bundle/jedi-vim/after
