@@ -68,6 +68,7 @@ bindkey '^w' backward-kill-word
 # User specific aliases and functions
 setopt PROMPT_SUBST
 
+GIT_PROMPT_EXECUTABLE="haskell" 
 source ~/git-prompt.zsh/git-prompt.zsh
 function get_git_branch {
     git rev-parse --abbrev-ref HEAD
@@ -362,6 +363,9 @@ bindkey '^F' tmux-sessionizer-widget
 if [[ -f ~/.config/python/pythonstartup.py ]]; then
     export PYTHONSTARTUP=~/.config/python/pythonstartup.py
 fi
+
+eval "$(/opt/homebrew/bin/zsh-patina activate)"
+eval "$(zoxide init zsh)"
 
 DISABLE_AUTO_TITLE="true" # Disable auto-setting terminal title.
 COMPLETION_WAITING_DOTS="true" # Display red dots whilst waiting for completion.

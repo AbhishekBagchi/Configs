@@ -154,3 +154,27 @@
 [submodule "home/git-prompt.zsh"]
 	path = home/git-prompt.zsh
 	url = git@github.com:woefe/git-prompt.zsh.git
+[submodule "home/.vim/bundle/vim-repeat"]
+	path = home/.vim/bundle/vim-repeat
+	url = git@github.com:tpope/vim-repeat.git
+	branch = master
+[submodule "home/.vim/bundle/ranger.vim"]
+	path = home/.vim/bundle/ranger.vim
+	url = git@github.com:francoiscabrol/ranger.vim.git
+	branch = master
+[submodule "home/.vim/bundle/asyncomplete-file.vim"]
+	path = home/.vim/bundle/asyncomplete-file.vim
+	url = git@github.com:prabirshrestha/asyncomplete-file.vim.git
+	branch = master
+[submodule "home/.vim/bundle/vim-eunuch"]
+	path = home/.vim/bundle/vim-eunuch
+	url = git@github.com:tpope/vim-eunuch.git
+	branch = master
+[submodule "home/.vim/bundle/vimspector"]
+	path = home/.vim/bundle/vimspector
+	url = git@github.com:puremourning/vimspector.git
+	branch = master
+[submodule "home/.vim/bundle/vim-gitgutter"]
+	path = home/.vim/bundle/vim-gitgutter
+	url = git@github.com:airblade/vim-gitgutter.git
+	branch = main
