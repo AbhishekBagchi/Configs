@@ -319,3 +319,14 @@ zsh-defer -c 'eval "$(zoxide init zsh)"'
 DISABLE_AUTO_TITLE="true" # Disable auto-setting terminal title.
 COMPLETION_WAITING_DOTS="true" # Display red dots whilst waiting for completion.
 setopt HIST_IGNORE_ALL_DUPS
+
+# Auto-compile zsh scripts to bytecode (.zwc) for faster sourcing on next start.
+# Runs after first prompt; the compiled file is used on subsequent shell starts.
+zsh-defer -c '
+    local f
+    for f in ~/.zshrc ~/.shell_aliases ~/.zsh/git-prompt.zsh/git-prompt.zsh; do
+        [[ -f $f && (! -f $f.zwc || $f -nt $f.zwc) ]] && zcompile -- $f
+    done
+    [[ -f ~/.zcompdump && ! -f ~/.zcompdump.zwc ]] && zcompile ~/.zcompdump
+    [[ -f ~/.zcompdump-$HOST-$ZSH_VERSION && ! -f ~/.zcompdump-$HOST-$ZSH_VERSION.zwc ]] && zcompile ~/.zcompdump-$HOST-$ZSH_VERSION
+'
