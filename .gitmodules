@@ -178,3 +178,19 @@
 	path = home/.vim/bundle/vim-gitgutter
 	url = git@github.com:airblade/vim-gitgutter.git
 	branch = main
+[submodule "home/.zsh/plugins/zsh-defer"]
+	path = home/.zsh/plugins/romkatv/zsh-defer
+	url = git@github.com:romkatv/zsh-defer.git
+	branch = master
+[submodule "home/.zsh/plugins/zsh-completions"]
+	path = home/.zsh/plugins/zsh-users/zsh-completions
+	url = git@github.com:zsh-users/zsh-completions.git
+	branch = master
+[submodule "home/.zsh/plugins/zsh-autosuggestions"]
+	path = home/.zsh/plugins/zsh-users/zsh-autosuggestions
+	url = git@github.com:zsh-users/zsh-autosuggestions.git
+	branch = master
+[submodule "home/.zsh/plugins/fzf-tab"]
+	path = home/.zsh/plugins/Aloxaf/fzf-tab
+	url = git@github.com:Aloxaf/fzf-tab.git
+	branch = master

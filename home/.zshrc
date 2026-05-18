@@ -1,26 +1,47 @@
-# Antigen
-if  [[ "$OSTYPE" == "darwin"* ]]; then
+# Cache `arch=$(arch)` once for use throughout the file
+if [[ "$OSTYPE" == "darwin"* ]]; then
     arch=$(arch)
-    if [[ "$arch" == "arm64" ]]; then
-        source /opt/homebrew/opt/antigen/share/antigen/antigen.zsh
-    else
-        echo "This antigen setup needs verification, and should be deprecated"
-        source /opt/brew/share/antigen/antigen.zsh
-    fi
-else
-    source /usr/share/zsh-antigen/antigen.zsh
 fi
-antigen use oh-my-zsh
-antigen bundle git
-antigen bundle taskwarrior
-antigen bundle zsh-users/zsh-completions
-antigen bundle zsh-users/zsh-autosuggestions
-antigen bundle command-not-found
-antigen bundle Aloxaf/fzf-tab
-antigen bundle romkatv/zsh-defer
 
-ANTIGEN_CACHE="$HOME/.antigen/.cache"
-antigen apply
+# Plugins are submodules under ~/.zsh/plugins/. Source them directly.
+# zsh-defer must load synchronously (other plugins use it for deferring).
+source ~/.zsh/plugins/romkatv/zsh-defer/zsh-defer.plugin.zsh
+
+# fpath setup: must happen before compinit so all completions are registered.
+fpath=(~/.zsh/plugins/zsh-users/zsh-completions/src $fpath)
+fpath+=(~/.zsh/plugins/taskwarrior ~/.zfunc)
+
+# compinit runs synchronously: many plugins call compdef which requires it.
+# With the cached compdump (< 24h), compinit -C is fast (~5ms).
+autoload -Uz compinit
+if [[ -n ${ZDOTDIR:-$HOME}/.zcompdump(#qNmh-24) ]]; then
+    compinit -C
+else
+    compinit
+fi
+
+# OMZ plugins (compdef is now available)
+source ~/.zsh/plugins/git/git.plugin.zsh
+source ~/.zsh/plugins/taskwarrior/taskwarrior.plugin.zsh
+source ~/.zsh/plugins/command-not-found/command-not-found.plugin.zsh
+
+# Defer the rest (autosuggestions and fzf-tab can wait until after first prompt).
+zsh-defer source ~/.zsh/plugins/zsh-users/zsh-autosuggestions/zsh-autosuggestions.zsh
+zsh-defer source ~/.zsh/plugins/Aloxaf/fzf-tab/fzf-tab.plugin.zsh
+
+# Cache output of `eval "$(slow-cmd)"` style commands so subsequent shells skip the subshell.
+# Usage: zsh_eval_cache <name> <command...>
+# First run: builds cache after first prompt (deferred). Subsequent runs: instant source.
+zsh_eval_cache() {
+    local name=$1 ; shift
+    local cache=${ZSH_CACHE_DIR:-$HOME/.cache/zsh}/$name.zsh
+    if [[ -s $cache ]]; then
+        source $cache
+        return
+    fi
+    [[ -d ${cache:h} ]] || mkdir -p ${cache:h}
+    zsh-defer -c "$* > $cache && source $cache"
+}
 
 export EDITOR='vim'
 
@@ -32,16 +53,6 @@ unsetopt autocd
 
 # The following lines were added by compinstall
 zstyle :compinstall filename '~/.zshrc'
-
-fpath+=~/.zfunc
-
-autoload -Uz compinit
-# Skip security audit if the compdump is < 24h old, and defer in either case
-if [[ -n ${ZDOTDIR:-$HOME}/.zcompdump(#qNmh-24) ]]; then
-    zsh-defer compinit -C
-else
-    zsh-defer compinit
-fi
 # End of lines added by compinstall
 
 # make less more friendly for non-text input files, see lesspipe(1)
