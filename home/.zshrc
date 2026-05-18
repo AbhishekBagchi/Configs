@@ -129,41 +129,21 @@ function package-search(){
     fi
 }
 
-function vicpp {
-    header_ext=
-    if [ -f ${1}h ]; then
-        header_ext=h
-    elif [ -f ${1}hpp ]; then
-        header_ext=hpp
-    elif [ -f ${1}hh ]; then
-        header_ext=hh
-    fi
-    source_ext=
-    if [ -f ${1}cpp ]; then
-        source_ext=cpp
-    elif [ -f ${1}cc ]; then
-        source_ext=cc
-    fi
-    vim $1{${header_ext},${source_ext}}
+# Find header and matching source file for a C++ basename (e.g., foo.)
+_cpp_pair() {
+    local base=$1
+    REPLY_FILES=()
+    local ext
+    for ext in h hpp hh; do
+        [[ -f "${base}${ext}" ]] && { REPLY_FILES+="${base}${ext}"; break; }
+    done
+    for ext in cpp cc; do
+        [[ -f "${base}${ext}" ]] && { REPLY_FILES+="${base}${ext}"; break; }
+    done
 }
 
-function vivsplit {
-    header_ext=
-    if [ -f ${1}h ]; then
-        header_ext=h
-    elif [ -f ${1}hpp ]; then
-        header_ext=hpp
-    elif [ -f ${1}hh ]; then
-        header_ext=hh
-    fi
-    source_ext=
-    if [ -f ${1}cpp ]; then
-        source_ext=cpp
-    elif [ -f ${1}cc ]; then
-        source_ext=cc
-    fi
-    vim -O $1{${header_ext},${source_ext}}
-}
+vicpp()    { _cpp_pair "$1"; vim    "${REPLY_FILES[@]}"; }
+vivsplit() { _cpp_pair "$1"; vim -O "${REPLY_FILES[@]}"; }
 
 function vimdiff_sorted {
     vimdiff <(sort ${1}) <(sort ${2})
@@ -175,7 +155,7 @@ function diff_sorted {
 
 # Example -> sleep 120 &; wait_for_pid_and_run $(get_pid sleep) echo "Sleep done"
 function get_pid {
-    echo $(ps aux | grep "$1" | grep -v grep | awk '{print $2}' | head -n1)
+    pgrep -f "$1" | head -n1
 }
 
 function wait_for_pid_and_run {
@@ -191,29 +171,17 @@ function wait_for_pid_and_run {
     fi
 }
 
-function prepend_date {
-    name=${1}
-    echo `date +'%F'`_${name}
+_dated() {
+    # _dated <p|a> <name> <format>  →  prefix or append a date to a name
+    local pos=$1 name=$2 fmt=$3
+    local d="$(date +"$fmt")"
+    [[ $pos == p ]] && echo "${d}_${name}" || echo "${name}_${d}"
 }
-
-function append_date_mmddyy {
-    name=${1}
-    echo ${name}_`date +'%m%d%Y'`
-}
-function append_date {
-    name=${1}
-    echo ${name}_`date +'%F'`
-}
-
-function prepend_date_and_time {
-    name=${1}
-    echo `date +'%F_%H_%M'`_${name}
-}
-
-function append_date_and_time {
-    name=${1}
-    echo ${name}_`date +'%F_%H_%M'`
-}
+prepend_date()          { _dated p "$1" '%F'; }
+append_date()           { _dated a "$1" '%F'; }
+append_date_mmddyy()    { _dated a "$1" '%m%d%Y'; }
+prepend_date_and_time() { _dated p "$1" '%F_%H_%M'; }
+append_date_and_time()  { _dated a "$1" '%F_%H_%M'; }
 
 function path_append() {
     if [ -d "$1" ] && [[ ":$PATH:" != *":$1:"* ]]; then
