@@ -47,3 +47,5 @@
 [status]
     showuntrackedfiles = no
     short = yes
+[diff "lfs"]
+	textconv = sh -c \"git -c filter.lfs.smudge= -c filter.lfs.required=false lfs smudge < \\\"$1\\\" 2>/dev/null\" --

@@ -26,6 +26,10 @@ source ~/.zsh/plugins/taskwarrior/taskwarrior.plugin.zsh
 source ~/.zsh/plugins/command-not-found/command-not-found.plugin.zsh
 
 # Defer the rest (autosuggestions and fzf-tab can wait until after first prompt).
+# Async: search history in a bg process so keystrokes never block on the ~117k-entry history.
+ZSH_AUTOSUGGEST_USE_ASYNC=1
+ZSH_AUTOSUGGEST_MANUAL_REBIND=1
+ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
 zsh-defer source ~/.zsh/plugins/zsh-users/zsh-autosuggestions/zsh-autosuggestions.zsh
 zsh-defer source ~/.zsh/plugins/Aloxaf/fzf-tab/fzf-tab.plugin.zsh
 
@@ -204,16 +208,31 @@ path_prepend() {
 
 update_font_size() {
     # Check if integer
-    if [[ "$1" =~ ^-?[0-9]+$ ]] ; then
-        # Check if MacOS
-        # FIXME Check if wezterm or alacritty
-        if  [[ "$OSTYPE" == "darwin"* ]]; then
-            sed -E -i '' "s/(size = )(.*)/\1${1}/g" ~/.config/alacritty/alacritty.toml
-            sed -E -i '' "s/(config.font_size = )(.*)/\1${1}/g" ~/.wezterm.lua
+    if [[ "$1" =~ ^-?[0-9]+$ ]]; then
+        # Determine sed in-place flag based on OS
+        if [[ "$OSTYPE" == "darwin"* ]]; then
+            local sed_flag=(-i '')
         else
-            sed -i "s/\(size = \)\(.*\)/\1${1}/g" ~/.config/alacritty/alacritty.toml
-            sed -i "s/\(config.font_size = \)\(.*\)/\1${1}/g" ~/.wezterm.lua
+            local sed_flag=(-i)
         fi
+
+        # Update config based on active terminal
+        case "$TERM_PROGRAM" in
+            WezTerm)
+                sed -E "${sed_flag[@]}" "s/(config.font_size = )(.*)/\1${1}/g" ~/.wezterm.lua
+                ;;
+            alacritty)
+                sed -E "${sed_flag[@]}" "s/(size = )(.*)/\1${1}/g" ~/.config/alacritty/alacritty.toml
+                ;;
+            ghostty)
+                sed -E "${sed_flag[@]}" "s/(font-size = )(.*)/\1${1}/g" ~/Library/Application\ Support/com.mitchellh.ghostty/config.ghostty
+                kill -SIGUSR1 $(pgrep -x ghostty)
+                ;;
+            *)
+                echo "update_font_size: unsupported terminal '$TERM_PROGRAM'" >&2
+                return 1
+                ;;
+        esac
     fi
 }
 
