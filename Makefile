@@ -1,20 +1,18 @@
 SOURCEHOME = home
 DOTFILES := $(wildcard $(SOURCEHOME)/\.[^\.]*)
 DOTFILES_NO_DIR := $(notdir $(DOTFILES))
-UNAME_S := $(shell uname -s)
-
-ifeq ($(UNAME_S),Darwin)
-	CP_FLAGS := -vr
-else
-	CP_FLAGS := -uvr
-endif
 
 all: config
+
+.PHONY: all config dotfiles dryrun diff
 
 config: dotfiles
 
 dotfiles:
-	cp $(CP_FLAGS) $(DOTFILES) $(HOME)/;
+	@./sync.sh
+
+dryrun:
+	@DRYRUN=1 ./sync.sh
 
 diff:
 	@$(foreach X,$(DOTFILES_NO_DIR), \

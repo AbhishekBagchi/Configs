@@ -20,10 +20,11 @@ else
     compinit
 fi
 
-# OMZ plugins (compdef is now available)
-source ~/.zsh/plugins/git/git.plugin.zsh
-source ~/.zsh/plugins/taskwarrior/taskwarrior.plugin.zsh
-source ~/.zsh/plugins/command-not-found/command-not-found.plugin.zsh
+# OMZ plugins (compdef is now available); vendored under ~/.zsh/plugins, refreshed by update.sh
+for _omz in git taskwarrior command-not-found; do
+    [[ -f ~/.zsh/plugins/$_omz/$_omz.plugin.zsh ]] && source ~/.zsh/plugins/$_omz/$_omz.plugin.zsh
+done
+unset _omz
 
 # Defer the rest (autosuggestions and fzf-tab can wait until after first prompt).
 # Async: search history in a bg process so keystrokes never block on the ~117k-entry history.
@@ -343,7 +344,6 @@ if [[ -f ~/.config/python/pythonstartup.py ]]; then
     export PYTHONSTARTUP=~/.config/python/pythonstartup.py
 fi
 
-eval "$(/opt/homebrew/bin/zsh-patina activate)"
 zsh-defer -c 'eval "$(zoxide init zsh)"'
 
 DISABLE_AUTO_TITLE="true" # Disable auto-setting terminal title.
@@ -360,3 +360,8 @@ zsh-defer -c '
     [[ -f ~/.zcompdump && ! -f ~/.zcompdump.zwc ]] && zcompile ~/.zcompdump
     [[ -f ~/.zcompdump-$HOST-$ZSH_VERSION && ! -f ~/.zcompdump-$HOST-$ZSH_VERSION.zwc ]] && zcompile ~/.zcompdump-$HOST-$ZSH_VERSION
 '
+
+# zsh-patina is a macOS/Homebrew binary; activate last so its ZLE widget wrapping is outermost.
+if [[ "$OSTYPE" == "darwin"* ]] && (( $+commands[zsh-patina] )); then
+    eval "$(zsh-patina activate)"
+fi
