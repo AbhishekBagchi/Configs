@@ -124,9 +124,6 @@
 [submodule "home/.vim/bundle/vim-diminactive"]
 	path = home/.vim/bundle/vim-diminactive
 	url = git@github.com:blueyed/vim-diminactive.git
-[submodule "home/.vim/bundle/vim-tmux-focus-events"]
-	path = home/.vim/bundle/vim-tmux-focus-events
-	url = git@github.com:blueyed/vim-diminactive.git
 [submodule "home/.vim/bundle/black"]
 	path = home/.vim/bundle/black
 	url = git@github.com:psf/black.git
