@@ -170,7 +170,7 @@ set statusline+=%{&fileformat}]              " file format
 set statusline+=%=                           " right align
 set statusline+=%{zoom#statusline()}         " zoom status
 set statusline+=%{FugitiveStatusline()}      " fugitive
-set statusline+=%{ObsessionStatus()}         " fugitive
+set statusline+=%{ObsessionStatus('\ [REC]','\ [S]')}  " obsession: recording / session loaded
 " set statusline+=%{synidattr(synid(line('.'),col('.'),1),'name')}\  " highlight
 
 " The status line now has the mode, so another mode isn't needed
@@ -211,6 +211,38 @@ augroup myCmds
     au!
     autocmd VimEnter * silent !echo -ne "\e[2 q"
     autocmd FileType gitcommit :setlocal spell spelllang=en_gb
+augroup END
+
+" Store vim-obsession sessions centrally (keyed by working dir) instead of
+" dropping Session.vim into each project. Auto-restore/record per cwd so
+" tmux-resurrect (which just relaunches vim in the pane's dir) brings it back.
+let g:obsession_session_dir = expand('~/.vim/sessions')
+if !isdirectory(g:obsession_session_dir)
+    call mkdir(g:obsession_session_dir, 'p', 0700)
+endif
+
+function! s:SessionFileForCwd() abort
+    return g:obsession_session_dir . '/' . substitute(getcwd(), '/', '%', 'g') . '.vim'
+endfunction
+
+function! s:AutoObsession() abort
+    if exists('g:this_obsession') || &diff
+                \ || index(['gitcommit', 'gitrebase'], &filetype) >= 0
+        return
+    endif
+    let l:sfile = s:SessionFileForCwd()
+    if filereadable(l:sfile)
+        if argc() == 0
+            execute 'source' fnameescape(l:sfile)
+        endif
+    else
+        execute 'Obsession' fnameescape(l:sfile)
+    endif
+endfunction
+
+augroup auto_obsession
+    autocmd!
+    autocmd VimEnter * nested call s:AutoObsession()
 augroup END
 
 

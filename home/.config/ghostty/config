@@ -1,0 +1,14 @@
+# Ghostty config — single source of truth (backed up in ~/Configs).
+font-family = Inconsolata Regular Regular
+font-size = 15
+
+# theme = Arthur
+# theme = Sonokai
+theme = Monokai Pro Spectrum
+# OLED: ~5% grey background (0.05*255≈13=0x0d) instead of pure black
+background = #0d0d0d
+
+macos-titlebar-style = tabs
+
+clipboard-read = allow
+clipboard-write = allow

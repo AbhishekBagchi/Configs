@@ -4,7 +4,7 @@ DOTFILES_NO_DIR := $(notdir $(DOTFILES))
 
 all: config
 
-.PHONY: all config dotfiles dryrun diff
+.PHONY: all config dotfiles dryrun diff brew brew-install
 
 config: dotfiles
 
@@ -21,3 +21,9 @@ diff:
 			echo "Diffing ${X}"; \
 			echo "$$OUTPUT"; \
 		fi;)
+
+brew:
+	@./brew-dump.sh
+
+brew-install:
+	@brew bundle install --file=Brewfile
