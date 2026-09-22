@@ -669,4 +669,4 @@ y = 5
 [general]
 live_config_reload = true
 working_directory = "None"
-import = ["~/.config/alacritty/themes/themes/sonokai.toml"]
+import = ["~/.config/alacritty/custom-themes/monokai_pro_spectrum.toml"]
