@@ -17,10 +17,10 @@ endif
 set background=dark
 
 let g:gruvbox_italic=1
-colorscheme gruvbox
+colorscheme monokai_pro_spectrum
 
 if &diff
-    colorscheme gruvbox
+    colorscheme monokai_pro_spectrum
 endif
 
 " After colorscheme so that this color doesn't get overriden
