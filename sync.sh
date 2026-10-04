@@ -32,10 +32,10 @@ while IFS= read -r sm; do
 	rel="${sm#home/}"
 	[ -d "$SRC/$rel" ] || continue
 	if [ "$DRYRUN" = 1 ]; then
-		act "rsync -a $SRC/$rel/ -> $DEST/$rel/"
+		act "rsync -a --exclude=.git $SRC/$rel/ -> $DEST/$rel/"
 	else
 		mkdir -p "$DEST/$rel"
-		rsync -a "$SRC/$rel/" "$DEST/$rel/"
+		rsync -a --exclude=.git "$SRC/$rel/" "$DEST/$rel/"
 	fi
 done < <(git -C "$REPO_DIR" config --file "$REPO_DIR/.gitmodules" --get-regexp '\.path$' | awk '{print $2}')
 
