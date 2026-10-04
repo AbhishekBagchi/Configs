@@ -14,6 +14,7 @@ REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 SRC="$REPO_DIR/home"
 DEST="${HOME}"
 DRYRUN="${DRYRUN:-0}"
+[ -t 0 ] && INTERACTIVE=1 || INTERACTIVE=0
 
 n_new=0 n_update=0 n_preserve=0 n_sync=0 n_overwrite=0 n_kept=0 n_merged=0 n_skip=0
 
@@ -70,7 +71,7 @@ merge_file() {
 	fi
 
 	# divergence (or untracked): interactive resolution
-	if [ ! -t 0 ]; then
+	if [ "$INTERACTIVE" != 1 ]; then
 		log "skip       $rel  (conflict, non-interactive)"; n_skip=$((n_skip+1)); rm -f "$base"; return 0
 	fi
 
