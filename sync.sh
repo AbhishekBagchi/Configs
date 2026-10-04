@@ -112,4 +112,4 @@ done < <(git -C "$REPO_DIR" ls-files home)
 
 log ""
 log "Summary: ${n_new} new, ${n_update} updated, ${n_merged} merged, ${n_overwrite} overwritten, ${n_preserve} preserved, ${n_kept} kept, ${n_skip} skipped, ${n_sync} in-sync"
-[ "$DRYRUN" = 1 ] && log "(dry run — no files written)"
+[ "$DRYRUN" = 1 ] && log "(dry run — no files written)" || true
