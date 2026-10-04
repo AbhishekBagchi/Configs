@@ -15,7 +15,7 @@ var servers = [
     {
         name: "pylsp",
         filetype: "python",
-        path: "/opt/homebrew/bin/pylsp",
+        path: "pylsp",
         workspaceConfig: {
             'pylsp': {
                 'configurationSources': [],
@@ -54,6 +54,12 @@ var servers = [
                 }
             },
         }
+    },
+    {
+        name: 'vimls',
+        filetype: 'vim',
+        path: 'vim-language-server',
+        args: ['--stdio']
     }
 ]
 

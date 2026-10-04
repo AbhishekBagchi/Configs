@@ -191,3 +191,6 @@
 	path = home/.zsh/plugins/Aloxaf/fzf-tab
 	url = git@github.com:Aloxaf/fzf-tab.git
 	branch = master
+[submodule "home/.vim/bundle/fzf"]
+	path = home/.vim/bundle/fzf
+	url = https://github.com/junegunn/fzf.git
